@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kmu\\Desktop\\Hourly\\IDP\\IDP\\IDP.csproj": {}
+    "C:\\Users\\kmu\\Desktop\\HOURLY-LOCAL\\Hourly\\IDP\\IDP\\IDP.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kmu\\Desktop\\Hourly\\IDP\\IDP\\IDP.csproj": {
+    "C:\\Users\\kmu\\Desktop\\HOURLY-LOCAL\\Hourly\\IDP\\IDP\\IDP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kmu\\Desktop\\Hourly\\IDP\\IDP\\IDP.csproj",
+        "projectUniqueName": "C:\\Users\\kmu\\Desktop\\HOURLY-LOCAL\\Hourly\\IDP\\IDP\\IDP.csproj",
         "projectName": "IDP",
-        "projectPath": "C:\\Users\\kmu\\Desktop\\Hourly\\IDP\\IDP\\IDP.csproj",
+        "projectPath": "C:\\Users\\kmu\\Desktop\\HOURLY-LOCAL\\Hourly\\IDP\\IDP\\IDP.csproj",
         "packagesPath": "C:\\Users\\kmu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kmu\\Desktop\\Hourly\\IDP\\IDP\\obj\\",
+        "outputPath": "C:\\Users\\kmu\\Desktop\\HOURLY-LOCAL\\Hourly\\IDP\\IDP\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\kmu\\AppData\\Roaming\\NuGet\\NuGet.Config",
