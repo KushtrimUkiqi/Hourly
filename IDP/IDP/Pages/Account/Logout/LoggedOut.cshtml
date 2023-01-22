@@ -1,0 +1,23 @@
+@page
+@model IDP.Pages.Logout.LoggedOut
+
+
+    @if (Model.View.PostLogoutRedirectUri != null)
+    {
+        <a class="PostLogoutRedirectUri" href="@Model.View.PostLogoutRedirectUri"></a>
+    }
+
+<div class="spinner-background">
+    <div class="spinner-container">
+        <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        <div class="message">Logging out...</div>
+    </div>
+</div>
+
+@section scripts
+{
+    @if (Model.View.AutomaticRedirectAfterSignOut)
+    {
+        <script src="~/js/signout-redirect.js"></script>
+    }
+}

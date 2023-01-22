@@ -1,0 +1,53 @@
+﻿@page
+@model IDP.Pages.User.Registration.IndexModel
+@{
+
+    <div class="session">
+        <form asp-route="Login">
+            <input type="hidden" asp-for="Input.ReturnUrl" />
+                <div>
+                    <label asp-for="Input.UserName"></label>
+                    <input  placeholder="Username" asp-for="Input.UserName" autofocus>
+                </div>
+                <div>
+                    <label asp-for="Input.Password"></label>
+                    <input type="password" placeholder="Password"
+                       asp-for="Input.Password">
+                </div>
+                <div>
+                    <label asp-for="Input.Email"></label>
+                    <input placeholder="Email" asp-for="Input.Email">
+                </div>
+                <div>
+                    <label asp-for="Input.GivenName"></label>
+                    <input  placeholder="Given name" asp-for="Input.GivenName">
+                </div>
+                <div>
+                    <label asp-for="Input.FamilyName"></label>
+                    <input placeholder="Family name" asp-for="Input.FamilyName">
+                </div>
+                <div>
+                    <label asp-for="Input.Country"></label>
+                    <select asp-for="Input.Country" asp-items="@Model.Input.CountryCodes"></select>
+                </div>
+
+                <div>
+                    <button>Register</button>
+                </div>
+        </form>
+
+        @* //<partial name="_ValidationSummary" />
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">User Registration</h3>
+                    </div>
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    </div>
+}
