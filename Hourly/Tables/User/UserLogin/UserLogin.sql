@@ -1,0 +1,13 @@
+﻿CREATE TABLE [dbo].[UserLogin]
+(
+	[Id] INT NOT NULL PRIMARY KEY,
+	[Uid] UNIQUEIDENTIFIER NOT NULL,
+	[Provider] VARCHAR(200) NOT NULL,
+	[ProviderIdentityKey] VARCHAR(200) NOT NULL,
+	[UserId] INT NOT NULL,
+	[ConcurrencyStamp] VARCHAR(255) NULL,
+	CONSTRAINT [FK_User] FOREIGN KEY ([UserId]) REFERENCES [User] ([Id]) ON DELETE CASCADE ON UPDATE NO ACTION
+);
+
+GO
+CREATE INDEX [IX_UserLogin_UserId] ON [UserLogin] ([UserId] ASC);

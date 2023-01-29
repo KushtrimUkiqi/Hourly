@@ -318,11 +318,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kmu\\Desktop\\HOURLY-LOCAL\\Hourly\\Common\\Common.csproj",
+      "projectUniqueName": "C:\\Users\\kmu\\Desktop\\DUENDE IDP  TEST LOCAL\\Hourly\\Common\\Common.csproj",
       "projectName": "Common",
-      "projectPath": "C:\\Users\\kmu\\Desktop\\HOURLY-LOCAL\\Hourly\\Common\\Common.csproj",
+      "projectPath": "C:\\Users\\kmu\\Desktop\\DUENDE IDP  TEST LOCAL\\Hourly\\Common\\Common.csproj",
       "packagesPath": "C:\\Users\\kmu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kmu\\Desktop\\HOURLY-LOCAL\\Hourly\\Common\\obj\\",
+      "outputPath": "C:\\Users\\kmu\\Desktop\\DUENDE IDP  TEST LOCAL\\Hourly\\Common\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\kmu\\AppData\\Roaming\\NuGet\\NuGet.Config",

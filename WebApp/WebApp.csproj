@@ -14,6 +14,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\Queries\Queries.csproj" />
+    <ProjectReference Include="..\ReadOnlyStorage\ReadOnlyStorage.csproj" />
+    <ProjectReference Include="..\Services\Services.csproj" />
+    <ProjectReference Include="..\Storage\Storage.csproj" />
   </ItemGroup>
 
 </Project>
