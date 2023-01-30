@@ -12,12 +12,12 @@
 
         protected internal Result(bool isSuccess, ResultCode resultCode, string? errorMessage  = null)
         {
-            if (isSuccess && (errorMessage != string.Empty || errorMessage != null))
+            if (isSuccess && errorMessage != null)
             {
                 throw new InvalidOperationException();
             }
 
-            if (!isSuccess && (errorMessage == string.Empty || errorMessage == null))
+            if (!isSuccess && errorMessage == null)
             {
                 throw new InvalidOperationException();
             }

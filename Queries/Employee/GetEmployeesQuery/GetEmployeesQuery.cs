@@ -5,18 +5,25 @@
 
     using Contracts.Common.Results;
     using Contracts.Common.Responses;
+    using Contracts.Employee.Responses;
     using Contracts.Employee.Storage.Read;
 
     using MediatR;
 
-    public class GetEmployeesQuery : IRequest<Result<PageListResponse<EmployeeReponseDto>>>
+    public class GetEmployeesQuery : IRequest<Result<PageListResponse<EmployeeResponseDto>>>
     {
+        public int PageNumber { get; set; }
+
         public int PageSize { get; set; }
 
-        public int Page { get; set; }
+        public GetEmployeesQuery(int pageNumber, int pageSize)
+        {
+            PageNumber = pageNumber;
+            PageSize = pageSize;
+        }
     }
 
-    public class GetEmployeesQueryHandler : IRequestHandler<GetEmployeesQuery, Result<PageListResponse<EmployeeReponseDto>>>
+    public class GetEmployeesQueryHandler : IRequestHandler<GetEmployeesQuery, Result<PageListResponse<EmployeeResponseDto>>>
     {
         private IEmployeeReadOnlyRepository _readEmployeeRepository;
 
@@ -25,9 +32,31 @@
             _readEmployeeRepository = readEmployeeRepository;
         }
 
-        public async Task<Result<PageListResponse<EmployeeReponseDto>>> Handle(GetEmployeesQuery request, CancellationToken cancellationToken)
+        public async Task<Result<PageListResponse<EmployeeResponseDto>>> Handle(GetEmployeesQuery request, CancellationToken cancellationToken)
         {
-            return Result<PageListResponse<EmployeeReponseDto>>.NOT_FOUND("SDSDSD");
+            var employeesResult = await _readEmployeeRepository.GetEmployees(pageNumber: request.PageNumber, pageSize: request.PageSize);
+
+            if (employeesResult.IsFailure)
+            {
+                return Result<PageListResponse<EmployeeResponseDto>>.FROM_ERROR(employeesResult);
+            }
+
+            return Result<PageListResponse<EmployeeResponseDto>>.OK(
+                new PageListResponse<EmployeeResponseDto>
+                { 
+                    PageNumber = request.PageNumber,
+                    Count = employeesResult.Value.Count(),
+                    // find solution for total count...
+                    TotalCount = 100,
+                    Items = employeesResult.Value.Select(x => new EmployeeResponseDto
+                    {
+                        Uid = x.Uid,
+                        FirstName = x.FirstName,
+                        LastName = x.LastName,
+                        PhoneNumber = x.PhoneNumber,
+                        Email = x.Email
+                    }).ToList()
+                });
         }
     }
 }

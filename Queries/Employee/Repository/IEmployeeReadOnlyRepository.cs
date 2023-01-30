@@ -10,6 +10,14 @@
         /// </summary>
         /// <param name="employeeUid"></param>
         /// <returns></returns>
-        public Result<Employee> GetEmployeeByUid(Guid employeeUid);
+        Task<Result<Employee>> GetEmployeeByUidAsync(Guid employeeUid);
+
+        /// <summary>
+        /// Returns all employees as pageable
+        /// </summary>
+        /// <param name="pageNumber"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        Task<Result<IEnumerable<Employee>>> GetEmployees(int pageNumber, int pageSize);
     }
 }

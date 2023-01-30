@@ -172,6 +172,7 @@ C:\Users\kmu\Desktop\HOURLY-LOCAL\Hourly\IDP\IDP\obj\Debug\net6.0\ref\IDP.dll
 C:\Users\kmu\Desktop\DUENDE IDP  TEST LOCAL\Hourly\IDP\IDP\bin\Debug\net6.0\appsettings.json
 C:\Users\kmu\Desktop\DUENDE IDP  TEST LOCAL\Hourly\IDP\IDP\bin\Debug\net6.0\keys\is-signing-key-1076CD03AEA91F81C6F87F1EE752E6CE.json
 C:\Users\kmu\Desktop\DUENDE IDP  TEST LOCAL\Hourly\IDP\IDP\bin\Debug\net6.0\keys\is-signing-key-A218AA6CC280BED498BC89724029963B.json
+C:\Users\kmu\Desktop\DUENDE IDP  TEST LOCAL\Hourly\IDP\IDP\bin\Debug\net6.0\keys\is-signing-key-FF8D18809BC64441E50F2EF14724C182.json
 C:\Users\kmu\Desktop\DUENDE IDP  TEST LOCAL\Hourly\IDP\IDP\bin\Debug\net6.0\IDP.staticwebassets.runtime.json
 C:\Users\kmu\Desktop\DUENDE IDP  TEST LOCAL\Hourly\IDP\IDP\bin\Debug\net6.0\IDP.exe
 C:\Users\kmu\Desktop\DUENDE IDP  TEST LOCAL\Hourly\IDP\IDP\bin\Debug\net6.0\IDP.deps.json
@@ -255,4 +256,3 @@ C:\Users\kmu\Desktop\DUENDE IDP  TEST LOCAL\Hourly\IDP\IDP\obj\Debug\net6.0\refi
 C:\Users\kmu\Desktop\DUENDE IDP  TEST LOCAL\Hourly\IDP\IDP\obj\Debug\net6.0\IDP.pdb
 C:\Users\kmu\Desktop\DUENDE IDP  TEST LOCAL\Hourly\IDP\IDP\obj\Debug\net6.0\IDP.genruntimeconfig.cache
 C:\Users\kmu\Desktop\DUENDE IDP  TEST LOCAL\Hourly\IDP\IDP\obj\Debug\net6.0\ref\IDP.dll
-C:\Users\kmu\Desktop\DUENDE IDP  TEST LOCAL\Hourly\IDP\IDP\bin\Debug\net6.0\keys\is-signing-key-FF8D18809BC64441E50F2EF14724C182.json

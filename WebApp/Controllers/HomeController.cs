@@ -1,10 +1,12 @@
 ﻿using Contracts.Common.Results;
+using Contracts.Employee.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Queries.Employee.GetEmployeeQuery;
+using Queries.Employee.GetEmployeesQuery;
 using System.Diagnostics;
 using System.Text;
 using WebApp.Models;
@@ -29,9 +31,20 @@ namespace WebApp.Controllers
 
             await LogIdentityInformation();
 
-            Result<EmployeeReponseDto> employee = await _mediator.Send(new GetEmployeeQuery(employeeUid: Guid.Parse("9CEC2D65-B14E-4B00-95E6-1917D98D89C4")));
+            var employeesResult = await _mediator.Send(new GetEmployeesQuery(pageNumber: 0, pageSize: 100));
 
-            return View();
+            if(employeesResult.IsFailure)
+            {
+                return View(new IndexModel
+                {
+                    Error = employeesResult.ErrorMessage
+                });
+            }
+
+            return View(new IndexModel
+            {
+                Employees = employeesResult.Value
+            });
         }
 
         public IActionResult Privacy()

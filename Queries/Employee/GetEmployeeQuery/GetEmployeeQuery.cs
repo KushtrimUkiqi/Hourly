@@ -5,11 +5,12 @@
     using System.Threading.Tasks;
 
     using Contracts.Common.Results;
+    using Contracts.Employee.Responses;
     using Contracts.Employee.Storage.Read;
 
     using MediatR;
 
-    public class GetEmployeeQuery : IRequest<Result<EmployeeReponseDto>>
+    public class GetEmployeeQuery : IRequest<Result<EmployeeResponseDto>>
     {
         public Guid EmployeeUid { get; private set; }
 
@@ -19,7 +20,7 @@
         }
     }
 
-    public class GetEmployeeQueryHandler : IRequestHandler<GetEmployeeQuery, Result<EmployeeReponseDto>>
+    public class GetEmployeeQueryHandler : IRequestHandler<GetEmployeeQuery, Result<EmployeeResponseDto>>
     {
         private readonly IEmployeeReadOnlyRepository _employeeRepository;
 
@@ -28,20 +29,22 @@
             _employeeRepository = employeeRepository;
         }
 
-        public async Task<Result<EmployeeReponseDto>> Handle(GetEmployeeQuery request, CancellationToken cancellationToken)
+        public async Task<Result<EmployeeResponseDto>> Handle(GetEmployeeQuery request, CancellationToken cancellationToken)
         {
-            var employeResult = _employeeRepository.GetEmployeeByUid(request.EmployeeUid);
+            var employeResult = await _employeeRepository.GetEmployeeByUidAsync(request.EmployeeUid);
 
             if(employeResult.IsFailure)
             {
-                return Result<EmployeeReponseDto>.FROM_ERROR(employeResult);
+                return Result<EmployeeResponseDto>.FROM_ERROR(employeResult);
             }
 
-            return Result<EmployeeReponseDto>.OK(new EmployeeReponseDto
+            return Result<EmployeeResponseDto>.OK(new EmployeeResponseDto
             {
                 Uid = employeResult.Value.Uid,
                 FirstName = employeResult.Value.FirstName,
-                LastName= employeResult.Value.LastName
+                LastName= employeResult.Value.LastName,
+                PhoneNumber = employeResult.Value.PhoneNumber,
+                Email = employeResult.Value.Email
             });
         }
     }
