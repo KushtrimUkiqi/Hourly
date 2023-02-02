@@ -1,7 +1,12 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Contracts.Common.Results;
+using Contracts.Employee.Responses;
+using MediatR;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Queries.Employee.GetEmployeeQuery;
+using Queries.Employee.GetEmployeesQuery;
 using System.Diagnostics;
 using System.Text;
 using WebApp.Models;
@@ -12,19 +17,34 @@ namespace WebApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IMediator _mediator;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IMediator mediator)
         {
             _logger = logger;
+            _mediator = mediator;
         }
 
         public async Task<IActionResult> Index()
         {
             var userId = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
 
-
             await LogIdentityInformation();
-            return View();
+
+            var employeesResult = await _mediator.Send(new GetEmployeesQuery(pageNumber: 0, pageSize: 100));
+
+            if(employeesResult.IsFailure)
+            {
+                return View(new IndexModel
+                {
+                    Error = employeesResult.ErrorMessage
+                });
+            }
+
+            return View(new IndexModel
+            {
+                Employees = employeesResult.Value
+            });
         }
 
         public IActionResult Privacy()

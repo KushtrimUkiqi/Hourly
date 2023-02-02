@@ -15,7 +15,7 @@ namespace IDP.Pages.MFA
     {
         private readonly ILocalUserService _localUserService;
 
-        private readonly char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123U567890".ToCharArray();
+        private readonly char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
         public ViewModel View { get; set; }
 

@@ -1,8 +1,55 @@
-﻿@{
+﻿@model IndexModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@*    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
+
+        @if (Model.Error != null)
+        {
+            <p>
+                <strong>@Model.Error</strong>
+            </p>
+        }
+
+    @{
+        if (Model.Error == null && Model.Employees != null)
+        {
+            <table class="table">
+                <thead class="thead-dark">
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">First name</th>
+                            <th scope="col">Last name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone number</th>
+                            <th scope="col">Position</th>
+                            <th scope="col">Department</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @{
+                        int index = 1;
+                        foreach (var employee in Model.Employees.Items)
+                        {
+                            <tr>
+                            <th scope="row">@index</th>
+                            <td>@employee.FirstName</td>
+                            <td>@employee.LastName</td>
+                            <td>@employee.Email</td>
+                            <td>@employee.PhoneNumber</td>
+                            <td></td>
+                            <td></td>
+                            </tr>
+
+                            index++;
+                        }
+                    }
+                    </tbody>
+                </table>
+            }
+        }
+
 </div>
