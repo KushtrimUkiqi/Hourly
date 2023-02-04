@@ -42,6 +42,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{AE
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "HourlyDatabase", "Hourly\HourlyDatabase.sqlproj", "{B80C31AD-1028-43D8-9070-9A55B4A4C94E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Translations", "Translations\Translations.csproj", "{BF915BE0-7702-43B8-A95F-DAB389CE2AE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -94,6 +96,10 @@ Global
 		{B80C31AD-1028-43D8-9070-9A55B4A4C94E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B80C31AD-1028-43D8-9070-9A55B4A4C94E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B80C31AD-1028-43D8-9070-9A55B4A4C94E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{BF915BE0-7702-43B8-A95F-DAB389CE2AE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF915BE0-7702-43B8-A95F-DAB389CE2AE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF915BE0-7702-43B8-A95F-DAB389CE2AE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF915BE0-7702-43B8-A95F-DAB389CE2AE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,6 +119,7 @@ Global
 		{146ABE06-7709-4915-9A65-4AA341CD9D48} = {2C3F2595-68BB-40C4-9295-40F9DA18A818}
 		{AE142898-0F33-455D-8443-2A72E4946C5E} = {2C3F2595-68BB-40C4-9295-40F9DA18A818}
 		{B80C31AD-1028-43D8-9070-9A55B4A4C94E} = {BC0B7C6A-1199-4186-8271-326699851B55}
+		{BF915BE0-7702-43B8-A95F-DAB389CE2AE3} = {146ABE06-7709-4915-9A65-4AA341CD9D48}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A670F6B0-84CC-48A7-BE97-C28E2EBEF8C5}
