@@ -11,6 +11,9 @@ CHECKLIST.md
 *.sln.docstates
 .vscode/
 
+# Ignore any files in /bin and /obj Folders
+**/bin/*
+**/obj/*
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
