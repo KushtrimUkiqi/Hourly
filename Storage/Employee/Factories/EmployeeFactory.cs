@@ -15,7 +15,7 @@
         public static Result<Entities.EmployeeContext.Domain.Employee> Create 
             (this StorageEntities.Employee dbEmployee)
         {
-            var employeeResult = Entities.EmployeeContext.Domain.Employee.Create(
+            var employeeResult = Entities.EmployeeContext.Domain.Employee.CreateFromStorage(
                 id: dbEmployee.Id,
                 uid: dbEmployee.Uid,
                 createdOn: dbEmployee.CreatedOn,

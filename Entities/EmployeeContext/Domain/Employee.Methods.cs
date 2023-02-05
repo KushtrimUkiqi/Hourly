@@ -19,7 +19,7 @@
         /// <param name="phoneNumber"></param>
         /// <param name="position"></param>
         /// <returns></returns>
-        public static Result<Employee> Create (
+        public static Result<Employee> CreateFromStorage (
             int id,
             Guid uid,
             DateTime createdOn,
@@ -72,8 +72,6 @@
         /// <param name="position"></param>
         /// <returns></returns>
         public static Result<Employee> Create(
-            DateTime createdOn,
-            DateTime deletedOn,
             string firstName,
             string lastName,
             string email,
@@ -97,8 +95,8 @@
                 new Employee
                 {
                     Uid = Guid.NewGuid(),
-                    CreatedOn = createdOn,
-                    DeletedOn = deletedOn,
+                    CreatedOn = DateTime.UtcNow,
+                    DeletedOn = null,
                     FirstName = employeeFirstNameValueResult.Value,
                     LastName = employeeLastNameValueResult.Value,
                     EmailAddress = emailAddressValueResult.Value,

@@ -1,18 +1,25 @@
-﻿using Contracts.Common.Results;
-using Contracts.Employee.Responses;
-using MediatR;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using Queries.Employee.GetEmployeeQuery;
-using Queries.Employee.GetEmployeesQuery;
-using System.Diagnostics;
-using System.Text;
-using WebApp.Models;
-
-namespace WebApp.Controllers
+﻿namespace WebApp.Controllers
 {
+    using System.Text;
+    using System.Diagnostics;
+
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+
+    using WebApp.Models;
+
+    using Contracts.Common.Results;
+    using Contracts.Employee.Requests;
+
+    using Queries.Employee.GetEmployeesQuery;
+
+    using Services.Employee.Commands.CreateEmployeeCommand;
+
+    using MediatR;
+
+
     [Authorize]
     public class HomeController : Controller
     {
@@ -47,6 +54,25 @@ namespace WebApp.Controllers
             });
         }
 
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("FirstName,LastName,Email,PhoneNumber,Position")] CreateEmployeeRequest request)
+        {
+            Result<Guid> createdEmployeeUidResult = await _mediator.Send(new CreateEmployeeCommand(request: request));
+
+            ///remake this part
+            if (createdEmployeeUidResult.IsFailure)
+            {
+                Error();
+            }
+
+            return View("Details", request);
+        }
         public IActionResult Privacy()
         {
             return View();
