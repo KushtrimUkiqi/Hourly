@@ -1,34 +1,38 @@
 ﻿@model IndexModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-@*    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
+<div >
 
-        @if (Model.Error != null)
-        {
-            <p>
-                <strong>@Model.Error</strong>
-            </p>
-        }
+    @if (Model.Error != null)
+    {
+        <p>
+            <strong>@Model.Error</strong>
+        </p>
+    }
+
+    <div class="d-flex justify-content-between">
+        <div class="col-9"></div>
+        <a class="btn btn-primary col-2" asp-area="" asp-controller="Home" asp-action="Create">Create employee</a>
+   </div>
 
     @{
         if (Model.Error == null && Model.Employees != null)
         {
             <table class="table">
                 <thead class="thead-dark">
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col">First name</th>
-                            <th scope="col">Last name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Phone number</th>
-                            <th scope="col">Position</th>
-                            <th scope="col">Department</th>
-                        </tr>
-                    </thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">First name</th>
+                        <th scope="col">Last name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone number</th>
+                        <th scope="col">Position</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">Hours</th>
+                    </tr>
+                </thead>
                     <tbody>
                     @{
                         int index = 1;

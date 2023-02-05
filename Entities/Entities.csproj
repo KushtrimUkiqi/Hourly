@@ -7,13 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Employee\Domain\" />
-    <Folder Include="Employee\Enums\" />
+    <Compile Remove="EmployeeContext\Enums\**" />
+    <EmbeddedResource Remove="EmployeeContext\Enums\**" />
+    <None Remove="EmployeeContext\Enums\**" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Contracts\Contracts.csproj" />
-    <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
 </Project>

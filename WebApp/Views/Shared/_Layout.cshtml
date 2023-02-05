@@ -40,14 +40,15 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Index">Employees</a>
                             </li>
                         }
-                        @if(User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="LogOut">Log out</a>
-                            </li>
-                        }
                     </ul>
                 </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="LogOut">Log out</a>
+                    </a>
+                }
+
             </div>
         </nav>
     </header>

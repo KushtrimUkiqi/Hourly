@@ -14,7 +14,7 @@
     using ReadOnlyStorage;
 
     using Services;
-
+    using Storage;
 
     public static class StartupExtensions
     {
@@ -26,6 +26,7 @@
 
             // Service layer services
             builder.Services.AddAplicationServices(builder.Configuration);
+            builder.Services.AddStorageServices(builder.Configuration);
 
             // add MVC
             builder.Services.AddControllersWithViews();
@@ -58,6 +59,7 @@
                     options.ClientId = "webApp";
                     options.ClientSecret = "8292rnqw9#$%^&^@hwefwe192784y124bqfuignwegui";
                     options.ResponseType = "code";
+                    // default path -- might change in the future!
                     //options.CallbackPath = new PathString("signin-oidc");
                     options.SaveTokens = true;
                     options.GetClaimsFromUserInfoEndpoint = true;
@@ -95,7 +97,7 @@
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                // The default HSTS value is 30 days. This should change in production scenarios https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
