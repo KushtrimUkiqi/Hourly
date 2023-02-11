@@ -1,11 +1,15 @@
-using Duende.IdentityServer;
-using IDP.DbContexts;
-using IDP.Services;
+namespace IDP;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
 
-namespace IDP;
+using Duende.IdentityServer;
+
+using IDP.Services;
+
+using Serilog;
+using IDP.Repository;
+using IDP.Domain.Entities;
 
 public static class HostingExtensions
 {
@@ -13,15 +17,21 @@ public static class HostingExtensions
     {
         // uncomment if you want to add a UI
         builder.Services.AddRazorPages();
-        builder.Services.AddScoped<IPasswordHasher<Entities.User>, PasswordHasher<Entities.User>>();
-        builder.Services.AddScoped<ILocalUserService, LocalUserService>();
+        builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+        //builder.Services.AddScoped<ILocalUserService, LocalUserService>();
 
-        builder.Services.AddDbContext<IdentityDbContext>(options =>
-        {
-            options.UseSqlite(
-                builder.Configuration
-                .GetConnectionString("IdentityDBConnectionString"));
-        });
+        // repository services registration
+        builder.Services.AddRepositoryServices(builder.Configuration);
+
+        // services service registration
+        builder.Services.AddAplicationServices();
+
+        //builder.Services.AddDbContext<IdentityDbContext>(options =>
+        //{
+        //    options.UseSqlite(
+        //        builder.Configuration
+        //        .GetConnectionString("IdentityDBConnectionString"));
+        //});
 
         builder.Services.AddAuthentication()
             .AddFacebook("Facebook", options =>
@@ -60,9 +70,10 @@ public static class HostingExtensions
 
         app.UseIdentityServer();
 
-        // uncomment if you want to add a UI
         app.UseAuthorization();
-        app.MapRazorPages().RequireAuthorization();
+
+        app.MapRazorPages()
+            .RequireAuthorization();
 
         return app;
     }

@@ -1,4 +1,5 @@
 using IDP.Services;
+using IDP.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -36,7 +37,7 @@ namespace IDP.Pages.User.Activation
                     "please contact your administrator.";
             }
 
-            await _localUserService.SaveChangesAsync();
+            //await _localUserService.SaveChangesAsync();
 
             return Page();
 
