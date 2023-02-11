@@ -1,4 +1,4 @@
-﻿namespace IDP.Common.Entities
+﻿namespace IDP.Common.BaseEntities
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;

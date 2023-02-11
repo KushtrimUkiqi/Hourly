@@ -1,6 +1,6 @@
 ﻿namespace IDP.Repository.EntitesConfiguration
 {
-    using IDP.Common.Entities;
+    using IDP.Common.BaseEntities;
     using IDP.Domain.Entities;
 
     using Microsoft.EntityFrameworkCore;

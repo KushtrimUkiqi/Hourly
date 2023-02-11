@@ -8,18 +8,22 @@
     using IDP.Domain.Entities;
     using IDP.Services.Interfaces;
     using IDP.Repository.Interfaces;
+    using IDP.Common.Contracts.IUnitOfWork;
 
     public class LocalUserService : ILocalUserService
     {
-        private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
+        private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IUserLoginsRepository _userLoginsRepository;
 
         public LocalUserService(
+            IUnitOfWork unitOfWork,
             IPasswordHasher<User> passwordHasher,
             IUserRepository userRepository,
             IUserLoginsRepository userLoginsRepository)
         {
+            _unitOfWork = unitOfWork;
             _passwordHasher = passwordHasher;
             _userRepository = userRepository;
             _userLoginsRepository = userLoginsRepository;
@@ -55,7 +59,7 @@
             return userLogin.User;
         }
 
-        public  User AutoProvisionUser(string provider,
+        public async Task<User> AutoProvisionUser(string provider,
             string providerIdentityKey,
             IEnumerable<Claim> claims)
         {
@@ -76,6 +80,7 @@
 
             var user = new User()
             {
+                CreatedOn= DateTime.UtcNow,
                 Active = true,
                 Subject = Guid.NewGuid().ToString()
             };
@@ -83,21 +88,26 @@
             {
                 user.Claims.Add(new UserClaim()
                 {
+                    CreatedOn = DateTime.UtcNow,
                     Type = claim.Type,
                     Value = claim.Value
                 });
             }
             user.Logins.Add(new UserLogin()
             {
+                CreatedOn = DateTime.UtcNow,
                 Provider = provider,
                 ProviderIdentityKey = providerIdentityKey
             });
 
             //_context.Users.Add(user);
             //user repo add user
-            _userRepository.AddAsync(user);
+            await _userRepository.AddAsync(user);
 
-            _userRepository.SaveChangesAsync();
+            //_userRepository.SaveChangesAsync();
+
+            await _unitOfWork.SaveChangesAsync();
+
             return user;
         }
 
@@ -197,7 +207,7 @@
             return user;
         }
 
-        public async void AddUser(User userToAdd, string password)
+        public async Task AddUser(User userToAdd, string password)
         {
             if (userToAdd == null)
             {
@@ -232,7 +242,8 @@
 
             await _userRepository.AddAsync(userToAdd);
 
-            await _userRepository.SaveChangesAsync();
+            //await _userRepository.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task<bool> ActivateUserAsync(string securityCode)
@@ -259,7 +270,7 @@
             user.Active = true;
             user.SecurityCode = null;
 
-            await _userRepository.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync();
 
             return true;
         }
@@ -296,6 +307,9 @@
 
             user.Secrets.Add(new UserSecret()
             { Name = name, Secret = secret });
+
+            await _unitOfWork.SaveChangesAsync();
+
             return true;
         }
 

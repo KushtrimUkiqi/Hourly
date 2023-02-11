@@ -8,7 +8,7 @@
 
         public Task<User> FindUserByExternalProviderAsync(string provider, string providerIdentityKey);
 
-        public User AutoProvisionUser(string provider,
+        public Task<User> AutoProvisionUser(string provider,
             string providerIdentityKey,
             IEnumerable<Claim> claims);
 
@@ -25,7 +25,7 @@
         Task<User> GetUserBySubjectAsync(
             string subject);
 
-        void AddUser
+        Task AddUser
             (User userToAdd,
             string password);
 

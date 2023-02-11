@@ -1,4 +1,7 @@
-﻿INSERT INTO [UserClaim] ([Id],[Uid],[CreatedOn],[Type],[Value],[ConcurrencyStamp],[UserId]) VALUES 
+﻿SET IDENTITY_INSERT [UserClaim] ON;
+
+
+INSERT INTO [UserClaim] ([Id],[Uid],[CreatedOn],[Type],[Value],[ConcurrencyStamp],[UserId]) VALUES 
 (1, '11F217A1-AEBD-4313-9805-7730B20E6289',N'2022-01-01 12:00:00','given_name','Kushtrim','217af98f-7501-410c-8ea1-e7bf87904664',7),
 (2, '2359D4A7-6EAD-4C45-9EF2-A866162EEF01',N'2022-01-01 12:00:00','family_name','Ukiqi','afe473d9-8b3c-469e-94a2-2c08630fe9b8',6),
 (3, '25A75DAC-3091-4C20-953F-86C9088F8C98',N'2022-01-01 12:00:00','family_name','Flagg','9fafd7a5-56ca-4768-a54f-0d423965baf0',1),
@@ -24,3 +27,5 @@
 (23, 'E1B088F9-42B9-4083-9AB7-109C2840EE83',N'2022-01-01 12:00:00','given_name','Emma','477550ad-7848-4c13-bbb7-e01299601c39',3),
 (24, 'E202F285-5987-4F11-AAB4-AE9CD46CCF16',N'2022-01-01 12:00:00','role','Employee','6dff9010-b544-4ff5-a30c-20c79074e404',1),
 (25, 'E60EED0C-9A72-4DBE-942E-4ABD726A68F3',N'2022-01-01 12:00:00','role','FreeUser','eaa7c8bc-18fd-450a-85a0-d495ab23efa0',4)
+
+SET IDENTITY_INSERT [UserClaim] OFF;

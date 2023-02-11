@@ -1,6 +1,6 @@
 ﻿namespace IDP.Domain.Entities
 {
-    using IDP.Common.Entities;
+    using IDP.Common.BaseEntities;
 
     public class UserClaim : BaseIdEntity,IConcurrencyAware
     {

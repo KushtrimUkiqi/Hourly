@@ -37,6 +37,7 @@
 
         public async Task<User> AddAsync(User entity)
         {
+            entity.CreatedOn= DateTime.Now;
             await _identityDbContext.Set<User>().AddAsync(entity);
 
             return entity;
@@ -80,8 +81,9 @@
         public async Task<bool> IsUserEmailUniqueAsync(string email)
         {
             string? userEmail = await _identityDbContext.Users
+                .Where(x => x.Email == email)
                 .Select(x => x.Email)
-                .FirstOrDefaultAsync(e => e == email);
+                .FirstOrDefaultAsync();
 
             return userEmail == null;
         }
@@ -89,8 +91,9 @@
         public async Task<bool> IsUserUserNameUniqueAsync(string userName)
         {
             string? userUserName = await _identityDbContext.Users
+                .Where(x => x.UserName == userName)
                 .Select(x => x.UserName)
-                .FirstOrDefaultAsync(u => u == userName);
+                .FirstOrDefaultAsync();
 
             return userUserName == null;
         }

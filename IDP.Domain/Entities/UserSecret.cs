@@ -1,6 +1,6 @@
 ﻿namespace IDP.Domain.Entities
 {
-    using IDP.Common.Entities;
+    using IDP.Common.BaseEntities;
     using System.ComponentModel.DataAnnotations;
 
     public class UserSecret : BaseIdEntity,IConcurrencyAware

@@ -56,6 +56,7 @@ namespace IDP.Pages.User.Registration
             // create user & claims
             var userToCreate = new Domain.Entities.User
             {
+                CreatedOn = DateTime.UtcNow,
                 UserName = Input.UserName,
                 Subject = Guid.NewGuid().ToString(),
                 Email = Input.Email,
@@ -63,24 +64,26 @@ namespace IDP.Pages.User.Registration
             };
             userToCreate.Claims.Add(new UserClaim()
             {
+                CreatedOn = DateTime.UtcNow,
                 Type = "country",
                 Value = Input.Country
             });
 
             userToCreate.Claims.Add(new UserClaim()
             {
+                CreatedOn = DateTime.UtcNow,
                 Type = JwtClaimTypes.GivenName,
                 Value = Input.GivenName
             });
 
             userToCreate.Claims.Add(new UserClaim()
             {
+                CreatedOn = DateTime.UtcNow,
                 Type = JwtClaimTypes.FamilyName,
                 Value = Input.FamilyName
             });
 
-            _localUserService.AddUser(userToCreate, 
-                Input.Password);
+            await _localUserService.AddUser(userToCreate, Input.Password);
             //await _localUserService.SaveChangesAsync();
 
             // create an activation link - we need an absolute URL, therefore

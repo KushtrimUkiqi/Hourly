@@ -46,6 +46,8 @@
 
         public async Task<UserLogin> AddAsync(UserLogin entity)
         {
+            entity.CreatedOn = DateTime.Now;
+
             await _identityDbContext.Set<UserLogin>().AddAsync(entity);
 
             return entity;

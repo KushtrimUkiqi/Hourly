@@ -1,7 +1,9 @@
 ﻿namespace IDP.Repository.DbContext
 {
+    using IDP.Common.BaseEntities;
     using IDP.Domain.Entities;
     using IDP.Repository.EntitesConfiguration;
+
     using Microsoft.EntityFrameworkCore;
 
     public class IdentityDbContext : DbContext
@@ -9,6 +11,7 @@
         public DbSet<User> Users { get; set; }
 
         public DbSet<UserClaim> UserClaims { get; set; }
+
         public DbSet<UserLogin> UserLogins { get; set; }
 
         public IdentityDbContext(
