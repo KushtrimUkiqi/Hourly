@@ -1,11 +1,14 @@
-using Duende.IdentityServer;
-using IDP.DbContexts;
-using IDP.Services;
+namespace IDP;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
 
-namespace IDP;
+using Duende.IdentityServer;
+
+using IDP.Services;
+using IDP.DbContexts;
+
+using Serilog;
 
 public static class HostingExtensions
 {
@@ -60,9 +63,10 @@ public static class HostingExtensions
 
         app.UseIdentityServer();
 
-        // uncomment if you want to add a UI
         app.UseAuthorization();
-        app.MapRazorPages().RequireAuthorization();
+
+        app.MapRazorPages()
+            .RequireAuthorization();
 
         return app;
     }

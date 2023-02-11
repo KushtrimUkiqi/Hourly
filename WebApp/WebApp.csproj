@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\Common\IDP.Common.csproj" />
     <ProjectReference Include="..\Contracts\Contracts.csproj" />
     <ProjectReference Include="..\Queries\Queries.csproj" />
     <ProjectReference Include="..\ReadOnlyStorage\ReadOnlyStorage.csproj" />

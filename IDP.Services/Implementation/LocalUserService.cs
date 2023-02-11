@@ -1,25 +1,28 @@
-﻿namespace IDP.Services
+﻿namespace IDP.Services.Implementation
 {
-    using IDP.DbContexts;
-    using IDP.Entities;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
     using System.Security.Claims;
     using System.Security.Cryptography;
 
+    using Microsoft.AspNetCore.Identity;
+
+    using IDP.Domain.Entities;
+    using IDP.Services.Interfaces;
+    using IDP.Repository.Interfaces;
+
     public class LocalUserService : ILocalUserService
     {
-        private readonly IdentityDbContext _context;
         private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly IUserRepository _userRepository;
+        private readonly IUserLoginsRepository _userLoginsRepository;
 
         public LocalUserService(
-            IdentityDbContext context,
-            IPasswordHasher<User> passwordHasher)
+            IPasswordHasher<User> passwordHasher,
+            IUserRepository userRepository,
+            IUserLoginsRepository userLoginsRepository)
         {
-            _context = context ??
-                throw new ArgumentNullException(nameof(context));
-            _passwordHasher = passwordHasher ??
-                throw new ArgumentNullException(nameof(passwordHasher));
+            _passwordHasher = passwordHasher;
+            _userRepository = userRepository;
+            _userLoginsRepository = userLoginsRepository;
         }
 
         public async Task<User> FindUserByExternalProviderAsync(
@@ -35,14 +38,24 @@
                 throw new ArgumentNullException(nameof(providerIdentityKey));
             }
 
-            UserLogin userLogin = await _context.UserLogins.Include(ul => ul.User)
-               .FirstOrDefaultAsync(ul => ul.Provider == provider
-               && ul.ProviderIdentityKey == providerIdentityKey);
+            //var userLogin = await _context.UserLogins.Include(ul => ul.User)
+            //   .FirstOrDefaultAsync(ul => ul.Provider == provider
+            //   && ul.ProviderIdentityKey == providerIdentityKey);
 
-            return userLogin?.User;
+            UserLogin? userLogin = await _userLoginsRepository.FindUserByExternalProviderAsync(
+                provider: provider,
+                providerIdentityKey: providerIdentityKey);
+
+            if(userLogin == null)
+            {
+                throw new ArgumentNullException(nameof(userLogin));
+
+            }
+
+            return userLogin.User;
         }
 
-        public User AutoProvisionUser(string provider,
+        public  User AutoProvisionUser(string provider,
             string providerIdentityKey,
             IEnumerable<Claim> claims)
         {
@@ -80,7 +93,11 @@
                 ProviderIdentityKey = providerIdentityKey
             });
 
-            _context.Users.Add(user);
+            //_context.Users.Add(user);
+            //user repo add user
+            _userRepository.AddAsync(user);
+
+            _userRepository.SaveChangesAsync();
             return user;
         }
 
@@ -110,7 +127,7 @@
                 return false;
             }
 
-            var user = await GetUserByUserNameAsync(userName);
+            User user = await GetUserByUserNameAsync(userName);
 
             if (user == null)
             {
@@ -138,8 +155,14 @@
                 throw new ArgumentNullException(nameof(userName));
             }
 
-            return await _context.Users
-                 .FirstOrDefaultAsync(u => u.UserName == userName);
+            User? user = await _userRepository.GetUserByUserNameAsync(userName);
+
+            if(user == null)
+            {
+                throw new InvalidOperationException("User does not exist");
+            }
+
+            return user;
         }
 
         public async Task<IEnumerable<UserClaim>> GetUserClaimsBySubjectAsync(string subject)
@@ -149,8 +172,12 @@
                 throw new ArgumentNullException(nameof(subject));
             }
 
-            return await _context.UserClaims.Where(u =>
-                u.User.Subject == subject).ToListAsync();
+            //return await _context.UserClaims.Where(u =>
+            //    u.User.Subject == subject).ToListAsync();
+
+            IEnumerable<UserClaim> userClaims = await _userRepository.GetUserClaimsBySubjectAsync(subject);
+
+            return userClaims;
         }
 
         public async Task<User> GetUserBySubjectAsync(string subject)
@@ -160,25 +187,35 @@
                 throw new ArgumentNullException(nameof(subject));
             }
 
-            return await _context.Users.FirstOrDefaultAsync(u =>
-                u.Subject == subject);
+            User? user =  await _userRepository.GetUserBySubjectAsync(subject);
+
+            if(user == null)
+            {
+                throw new InvalidOperationException("User does not exist");
+            }
+
+            return user;
         }
 
-        public void AddUser(User userToAdd, string password)
+        public async void AddUser(User userToAdd, string password)
         {
             if (userToAdd == null)
             {
                 throw new ArgumentNullException(nameof(userToAdd));
             }
 
-            if (_context.Users.Any(u => u.UserName == userToAdd.UserName))
+            bool isUserNameUnique = await _userRepository.IsUserUserNameUniqueAsync(userToAdd.UserName);
+
+            if (!isUserNameUnique)
             {
                 // in a real-life scenario you'll probably want to 
                 // return this as a validation issue
                 throw new Exception("Username must be unique");
             }
 
-            if (_context.Users.Any(u => u.Email == userToAdd.Email))
+            bool isUserEmailUnique = await _userRepository.IsUserEmailUniqueAsync(userToAdd.Email);
+
+            if (!isUserEmailUnique)
             {
                 throw new Exception("Email must be unique");
             }
@@ -191,7 +228,11 @@
             userToAdd.Password =
                 _passwordHasher.HashPassword(userToAdd, password);
 
-            _context.Users.Add(userToAdd);
+            //_context.Users.Add(userToAdd);
+
+            await _userRepository.AddAsync(userToAdd);
+
+            await _userRepository.SaveChangesAsync();
         }
 
         public async Task<bool> ActivateUserAsync(string securityCode)
@@ -202,9 +243,13 @@
             }
 
             // find an user with this security code as an active security code.  
-            var user = await _context.Users.FirstOrDefaultAsync(u =>
-                u.SecurityCode == securityCode &&
-                u.SecurityCodeExpirationDate >= DateTime.UtcNow);
+            //var user = await _context.Users.FirstOrDefaultAsync(u =>
+            //    u.SecurityCode == securityCode &&
+            //    u.SecurityCodeExpirationDate >= DateTime.UtcNow);
+
+            User? user = await _userRepository.FindUserByActiveSecurityCode
+                (securityCode: securityCode,
+                dateTime: DateTime.UtcNow);
 
             if (user == null)
             {
@@ -213,13 +258,16 @@
 
             user.Active = true;
             user.SecurityCode = null;
+
+            await _userRepository.SaveChangesAsync();
+
             return true;
         }
 
-        public async Task<bool> SaveChangesAsync()
-        {
-            return (await _context.SaveChangesAsync() > 0);
-        }
+        //public async Task<bool> SaveChangesAsync()
+        //{
+        //    return (await _context.SaveChangesAsync() > 0);
+        //}
 
         public async Task<bool> AddUserSecret(string subject,
             string name, string secret)
