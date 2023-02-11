@@ -24,4 +24,11 @@
   <ItemGroup>
     <None Include="C:\Users\kmu\Desktop\DuendeIdentityServerExercices\PROJECT\IDP\IDP\.editorconfig" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\IDP.Common.csproj" />
+    <ProjectReference Include="..\..\IDP.Domain\IDP.Domain.csproj" />
+    <ProjectReference Include="..\..\IDP.Repository\IDP.Repository.csproj" />
+    <ProjectReference Include="..\..\IDP.Services\IDP.Services.csproj" />
+  </ItemGroup>
 </Project>

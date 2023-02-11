@@ -2,6 +2,7 @@ namespace IDP.Pages.MFA
 {
     using IdentityModel;
     using IDP.Services;
+    using IDP.Services.Interfaces;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -46,7 +47,7 @@ namespace IDP.Pages.MFA
 
             string subject = User.FindFirst(JwtClaimTypes.Subject)?.Value;
 
-            Entities.User user = await _localUserService.GetUserBySubjectAsync(subject);
+            var user = await _localUserService.GetUserBySubjectAsync(subject);
 
             string keyUri = string.Format(
                 "otpauth://totp/{0}:{1}?secret={2}&issuer={0}",
@@ -74,7 +75,7 @@ namespace IDP.Pages.MFA
                 if (await _localUserService
                     .AddUserSecret(subject, "TOTP", Input.Secret))
                 {
-                    await _localUserService.SaveChangesAsync();
+                    //await _localUserService.SaveChangesAsync();
                     // return to the root 
                     return Redirect("~/");
                 }

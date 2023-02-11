@@ -1,5 +1,7 @@
 ﻿CREATE TABLE [dbo].[UserSecret] (
   [Id] INT PRIMARY KEY NOT NULL,
+  [CreatedOn] SMALLDATETIME NOT NULL,
+  [DeletedOn] SMALLDATETIME NULL,
   [Name] VARCHAR(50) NOT NULL,
   [Secret] VARCHAR(255) NOT NULL,
   [UserId] INT NOT NULL,

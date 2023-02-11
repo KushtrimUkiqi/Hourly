@@ -1,7 +1,8 @@
 using Duende.IdentityServer;
 using Duende.IdentityServer.Services;
 using IdentityModel;
-using IDP.Services;
+using IDP.Domain.Entities;
+using IDP.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -53,34 +54,34 @@ namespace IDP.Pages.User.Registration
             }
 
             // create user & claims
-            var userToCreate = new Entities.User
+            var userToCreate = new Domain.Entities.User
             {
                 UserName = Input.UserName,
                 Subject = Guid.NewGuid().ToString(),
                 Email = Input.Email,
                 Active = false 
             };
-            userToCreate.Claims.Add(new Entities.UserClaim()
+            userToCreate.Claims.Add(new UserClaim()
             {
                 Type = "country",
                 Value = Input.Country
             });
 
-            userToCreate.Claims.Add(new Entities.UserClaim()
+            userToCreate.Claims.Add(new UserClaim()
             {
                 Type = JwtClaimTypes.GivenName,
                 Value = Input.GivenName
             });
 
-            userToCreate.Claims.Add(new Entities.UserClaim()
+            userToCreate.Claims.Add(new UserClaim()
             {
                 Type = JwtClaimTypes.FamilyName,
                 Value = Input.FamilyName
             });
 
-            _localUserService.AddUser (userToCreate, 
+            _localUserService.AddUser(userToCreate, 
                 Input.Password);
-            await _localUserService.SaveChangesAsync();
+            //await _localUserService.SaveChangesAsync();
 
             // create an activation link - we need an absolute URL, therefore
             // we use Url.PageLink instead of Url.Page

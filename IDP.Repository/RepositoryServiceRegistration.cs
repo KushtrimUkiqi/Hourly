@@ -10,7 +10,7 @@
 
         public static class RepositoryServiceRegistration
         {
-            public static IServiceCollection AddReadOnlyStorageServices(this IServiceCollection services, IConfiguration configuration)
+            public static IServiceCollection AddRepositoryServices(this IServiceCollection services, IConfiguration configuration)
             {
                 // db contexts registrations
                 services.AddDbContext<IdentityDbContext>(options =>

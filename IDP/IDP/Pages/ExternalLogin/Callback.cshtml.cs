@@ -6,6 +6,7 @@ using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Services;
 using IdentityModel;
 using IDP.Services;
+using IDP.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -74,7 +75,7 @@ public class Callback : PageModel
         var providerUserId = userIdClaim.Value;
 
         //// find external user
-        Entities.User user = await _localUserService.FindUserByExternalProviderAsync(provider, providerUserId);
+        var user = await _localUserService.FindUserByExternalProviderAsync(provider, providerUserId);
         
         if (user == null)
         {
@@ -102,7 +103,7 @@ public class Callback : PageModel
                 // auto-provision the user
                 user = _localUserService.AutoProvisionUser(
                     provider, providerUserId, mappedClaims.ToList());
-                await _localUserService.SaveChangesAsync();
+                //await _localUserService.SaveChangesAsync();
             }
         }
 
