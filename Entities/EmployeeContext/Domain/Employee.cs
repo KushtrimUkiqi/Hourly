@@ -5,7 +5,7 @@
 
     using Entities.EmployeeContext.ValueObjects;
 
-    public partial class Employee : DomainEntity
+    public partial class Employee : AggregateRoot
     {
         /// <summary>
         /// Employee uid
@@ -36,5 +36,10 @@
         /// Employee position at the company
         /// </summary>
         public string? EmployeePosition { get; private set; }
+
+        /// <summary>
+        /// Tenant id
+        /// </summary>
+        public int TenantId { get; private set; }
     }
 }

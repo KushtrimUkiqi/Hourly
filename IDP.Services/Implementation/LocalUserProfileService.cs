@@ -7,6 +7,7 @@
 
     using Duende.IdentityServer.Models;
     using Duende.IdentityServer.Extensions;
+    using IDP.Common.Constants;
 
     public class LocalUserProfileService : ILocalUserProfileService
     {
@@ -22,12 +23,18 @@
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
             var subjectId = context.Subject.GetSubjectId();
+
+            Domain.Entities.User user = await _localUserService.GetUserBySubjectAsync(subjectId);
+
             var claimsForUser = (await _localUserService
                 .GetUserClaimsBySubjectAsync(subjectId))
                 .ToList();
 
-            context.AddRequestedClaims(
-                claimsForUser.Select(c => new Claim(c.Type, c.Value)).ToList());
+            var userClaims = claimsForUser.Select(c => new Claim(c.Type, c.Value)).ToList();
+
+            userClaims.Add(new Claim(UserClaims.TenantUid, user.TenantUid.ToString()));
+
+            context.AddRequestedClaims(userClaims);
 
         }
 

@@ -2,7 +2,6 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
-    using Common.Constants;
 
     
     public class AdminController : Controller

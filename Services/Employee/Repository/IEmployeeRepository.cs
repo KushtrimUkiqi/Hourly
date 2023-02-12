@@ -12,6 +12,8 @@
         /// <returns></returns> 
         Task<Result<Employee>> GetEmployeeByUidAsync(Guid employeeUid);
 
+        Task<Result<Tenant>> GetTenantByUidAsync(Guid tenantUid);
+
         /// <summary>
         /// Adds a new employee
         /// </summary>

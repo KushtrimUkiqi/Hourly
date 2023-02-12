@@ -18,7 +18,8 @@
     using Services.Employee.Commands.CreateEmployeeCommand;
 
     using MediatR;
-
+    using Contracts.Common.Constants;
+    using Contracts.Common.ResultTexts;
 
     [Authorize]
     public class HomeController : Controller
@@ -36,9 +37,17 @@
         {
             var userId = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
 
+            if(!Guid.TryParse(User.Claims.FirstOrDefault(x => x.Type == UserClaims.TenantUid)?.Value,out Guid tenantUid))
+            {
+                return View(new IndexModel
+                {
+                    Error = ResultTexts.TENANT_NOT_FOUND
+                }); ;
+            }
+
             await LogIdentityInformation();
 
-            var employeesResult = await _mediator.Send(new GetEmployeesQuery(pageNumber: 0, pageSize: 100));
+            var employeesResult = await _mediator.Send(new GetEmployeesQuery(tenantUid: tenantUid, pageNumber: 0, pageSize: 100));
 
             if(employeesResult.IsFailure)
             {
@@ -63,7 +72,15 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FirstName,LastName,Email,PhoneNumber,Position")] CreateEmployeeRequest request)
         {
-            Result<Guid> createdEmployeeUidResult = await _mediator.Send(new CreateEmployeeCommand(request: request));
+            if (!Guid.TryParse(User.Claims.FirstOrDefault(x => x.Type == UserClaims.TenantUid)?.Value, out Guid tenantUid))
+            {
+                return View(new IndexModel
+                {
+                    Error = ResultTexts.TENANT_NOT_FOUND
+                }); ;
+            }
+
+            Result<Guid> createdEmployeeUidResult = await _mediator.Send(new CreateEmployeeCommand(tenantUid: tenantUid,request: request));
 
             ///remake this part
             if (createdEmployeeUidResult.IsFailure)

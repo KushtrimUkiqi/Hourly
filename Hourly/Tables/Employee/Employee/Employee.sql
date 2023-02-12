@@ -9,5 +9,5 @@
     [Email] NVARCHAR(50) NOT NULL, 
     [PhoneNumber] NVARCHAR(50) NOT NULL, 
     [UserId] INT NULL, 
-    [TenantId] INT NULL
+    [TenantId] INT NOT NULL
 )

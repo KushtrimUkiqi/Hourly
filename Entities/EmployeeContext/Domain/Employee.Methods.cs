@@ -18,6 +18,7 @@
         /// <param name="email"></param>
         /// <param name="phoneNumber"></param>
         /// <param name="position"></param>
+        /// <param name="tenantId"></param>
         /// <returns></returns>
         public static Result<Employee> CreateFromStorage (
             int id,
@@ -28,7 +29,8 @@
             string lastName,
             string email,
             string phoneNumber,
-            string position)
+            string position,
+            int tenantId)
         {
             Result<EmployeeFirstNameValue> employeeFirstNameValueResult = EmployeeFirstNameValue.Create(firstName);
             Result<EmployeeLastNameValue> employeeLastNameValueResult = EmployeeLastNameValue.Create(lastName);
@@ -55,16 +57,14 @@
                     EmailAddress = emailAddressValueResult.Value,
                     PhoneNumber = phoneNumberValueResult.Value,
                     EmployeePosition = position,
+                    TenantId = tenantId
                 });
         }
 
         /// <summary>
         /// Domain object created from the creation flow
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="uid"></param>
-        /// <param name="createdOn"></param>
-        /// <param name="deletedOn"></param>
+        /// <param name="tenantId"></param>
         /// <param name="firstName"></param>
         /// <param name="lastName"></param>
         /// <param name="email"></param>
@@ -72,6 +72,7 @@
         /// <param name="position"></param>
         /// <returns></returns>
         public static Result<Employee> Create(
+            int tenantId,
             string firstName,
             string lastName,
             string email,
@@ -102,6 +103,7 @@
                     EmailAddress = emailAddressValueResult.Value,
                     PhoneNumber = phoneNumberValueResult.Value,
                     EmployeePosition = position,
+                    TenantId = tenantId
                 });
         }
     }

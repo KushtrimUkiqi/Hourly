@@ -4,6 +4,8 @@
     {
         public TValue? Value { get; private set; }
 
+        public override bool IsFailure => !IsSucess || Value == null;
+
         protected internal Result(TValue? value, bool isSuccess, ResultCode resultCode, string errorMessage = null)
             : base(isSuccess, resultCode, errorMessage)
         {

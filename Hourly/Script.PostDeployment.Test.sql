@@ -17,5 +17,7 @@ BEGIN
 	:r .\Tables\User\UserLogin\Test.UserLogin.Seed.sql
 	:r .\Tables\User\UserSecret\Test.UserSecret.Seed.sql
 
+	:r .\Tables\Tenant\Tenant\Test.Tenant.Seed.sql
+
 	:r .\Tables\Employee\Employee\Test.Employee.Seed.sql
 END

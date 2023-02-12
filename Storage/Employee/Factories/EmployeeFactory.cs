@@ -24,7 +24,8 @@
                 lastName: dbEmployee.LastName,
                 email: dbEmployee.Email,
                 position: "",
-                phoneNumber: dbEmployee.PhoneNumber);
+                phoneNumber: dbEmployee.PhoneNumber,
+                tenantId: dbEmployee.TenantId);
 
             return employeeResult;
         }
@@ -64,7 +65,8 @@
                 FirstName = employee.FirstName.Value,
                 LastName = employee.LastName.Value,
                 Email = employee.EmailAddress.Value,
-                PhoneNumber = employee.PhoneNumber.Value
+                PhoneNumber = employee.PhoneNumber.Value,
+                TenantId = employee.TenantId
             };
 
             return Result<StorageEntities.Employee>.OK(dbEmployee);

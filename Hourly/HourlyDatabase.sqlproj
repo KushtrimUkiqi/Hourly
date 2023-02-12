@@ -65,6 +65,7 @@
     <Folder Include="Tables\Employee" />
     <Folder Include="Tables\Tenant" />
     <Folder Include="Tables\Employee\Employee" />
+    <Folder Include="Tables\Tenant\Tenant" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\User\UserSecret\UserSecret.sql" />
@@ -72,6 +73,7 @@
     <Build Include="Tables\User\UserLogin\UserLogin.sql" />
     <Build Include="Tables\User\User\User.sql" />
     <Build Include="Tables\Employee\Employee\Employee.sql" />
+    <Build Include="Tables\Tenant\Tenant\Tenant.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Tables\User\User\Test.User.Seed.sql" />
@@ -80,6 +82,7 @@
     <None Include="Tables\User\UserClaim\Test.UserClaim.Seed.sql" />
     <None Include="HourlyDatabase.publish.xml" />
     <None Include="Tables\Employee\Employee\Test.Employee.Seed.sql" />
+    <None Include="Tables\Tenant\Tenant\Test.Tenant.Seed.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.Test.sql" />

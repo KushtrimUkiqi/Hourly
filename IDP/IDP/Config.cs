@@ -2,6 +2,7 @@
 
 using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
+using IDP.Common.Constants;
 
 public static class Config
 {
@@ -11,7 +12,8 @@ public static class Config
             new IdentityResources.OpenId(),
             new IdentityResources.Profile(),
             new IdentityResource("roles", "Your roles", new [] { "role" }),
-            new IdentityResource("country", "Your country", new [] { "country" })
+            new IdentityResource("country", "Your country", new [] { "country" }),
+            new IdentityResource(UserClaims.TenantUid, "Tenant uid", new [] {UserClaims.TenantUid})
 
         };
 
@@ -19,7 +21,7 @@ public static class Config
     new ApiResource[]
         { 
             new ApiResource("webapi","WEB API",
-                new [] { "role", "country" })
+                new [] { "role", "country", UserClaims.TenantUid })
             {
                 Scopes = { "webapi.fullaccess" }
             }
@@ -56,6 +58,7 @@ public static class Config
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
+                        UserClaims.TenantUid,
                         "roles",
                         "webapi.readAccess",
                         "country"

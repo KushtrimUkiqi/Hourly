@@ -12,11 +12,13 @@
 
     public class CreateEmployeeCommand : IRequest<Result<Guid>>
     {
+        public Guid TenantUid { get; set; }
 
         public CreateEmployeeRequest Request { get; set; }
 
-        public CreateEmployeeCommand(CreateEmployeeRequest request)
+        public CreateEmployeeCommand(Guid tenantUid, CreateEmployeeRequest request)
         {
+            TenantUid = tenantUid;
             Request = request;
         }
     }
@@ -32,12 +34,20 @@
 
         public async Task<Result<Guid>> Handle(CreateEmployeeCommand request, CancellationToken cancellationToken)
         {
+            var tenantResult = await _employeeRepository.GetTenantByUidAsync(request.TenantUid);
+            
+            if(tenantResult.IsFailure || tenantResult.Value == null)
+            {
+                return Result<Guid>.FROM_ERROR(tenantResult);
+            }
+
             Result<Employee> employeeCreatedResult = Employee.Create(
                 firstName: request.Request.FirstName,
                 lastName: request.Request.LastName,
                 email: request.Request.Email,
                 phoneNumber: request.Request.PhoneNumber,
-                position: request.Request.Position);
+                position: request.Request.Position,
+                tenantId: tenantResult.Value.Id);
 
             if(employeeCreatedResult.IsFailure)
             {

@@ -33,6 +33,18 @@
             return dbEmployee.Create();
         }
 
+        public async Task<Result<Tenant>> GetTenantByUidAsync(Guid tenantUid)
+        {
+            StorageEntities.Tenant? dbTenant = await _employeeDbContext.Set<StorageEntities.Tenant>().FirstOrDefaultAsync(x => x.Uid == tenantUid);
+
+            if (dbTenant == null)
+            {
+                return Result<Tenant>.NOT_FOUND(ResultTexts.TENANT_NOT_FOUND);
+            }
+
+            return dbTenant.Create();
+        }
+
         public async Task<Result> AddAsync(Employee employee)
         {
             var dbEmployeeResult = employee.Create();

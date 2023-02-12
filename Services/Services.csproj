@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<Folder Include="Employee\IntegrationEventHandlers\" />
 	<Folder Include="Employee\DomainEventHandlers\" />
+	<Folder Include="Employee\IntegrationEventHandlers\" />
+	<Folder Include="Tenant\Commands\" />
+	<Folder Include="Tenant\IntegrationEventHandlers\" />
+	<Folder Include="Tenant\DomainEventHandlers\" />
   </ItemGroup>
 
  <ItemGroup>

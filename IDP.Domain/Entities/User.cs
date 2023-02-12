@@ -18,7 +18,10 @@
 
         public string? SecurityCode { get; set; }
 
+        public Guid TenantUid { get; set; }
+
         public DateTime? SecurityCodeExpirationDate { get; set; }
+
 
         public string ConcurrencyStamp { get; set; } = Guid.NewGuid().ToString();
 
