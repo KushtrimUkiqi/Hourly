@@ -16,6 +16,9 @@ BEGIN
 	:r .\Tables\User\UserClaim\Test.UserClaim.Seed.sql
 	:r .\Tables\User\UserLogin\Test.UserLogin.Seed.sql
 	:r .\Tables\User\UserSecret\Test.UserSecret.Seed.sql
+	:r .\Tables\User\Role\Test.Role.Seed.sql
+	:r .\Tables\User\Permission\Test.Permission.Seed.sql
+	:r .\Tables\User\UserRole\Test.UserRole.Seed.sql
 
 	:r .\Tables\Tenant\Tenant\Test.Tenant.Seed.sql
 

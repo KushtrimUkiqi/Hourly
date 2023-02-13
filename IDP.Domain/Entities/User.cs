@@ -25,6 +25,8 @@
 
         public string ConcurrencyStamp { get; set; } = Guid.NewGuid().ToString();
 
+        public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
+
         public ICollection<UserClaim> Claims { get; set; } = new List<UserClaim>();
 
         public ICollection<UserLogin> Logins { get; set; } = new List<UserLogin>();

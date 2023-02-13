@@ -73,7 +73,10 @@
         public async Task<User?> GetUserByUserNameAsync(string userName)
         {
             User? user = await _identityDbContext.Users
-                 .FirstOrDefaultAsync(u => u.UserName == userName);
+                .Include(x => x.UserRoles)
+                    .ThenInclude(x => x.Role)
+                        .ThenInclude(x => x.Permissions)
+                .FirstOrDefaultAsync(u => u.UserName == userName);
 
             return user;
         }
