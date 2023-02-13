@@ -60,8 +60,11 @@
 
         public async Task<User?> GetUserBySubjectAsync(string subject)
         {
-            return await _identityDbContext.Users.FirstOrDefaultAsync(u =>
-                u.Subject == subject);
+            return await _identityDbContext.Users
+                .Include(x => x.UserRoles)
+                    .ThenInclude(x => x.Role)
+                        .ThenInclude(x => x.Permissions)
+                .FirstOrDefaultAsync(u => u.Subject == subject);
         }
 
         public async Task<IEnumerable<UserClaim>> GetUserClaimsBySubjectAsync(string subject)

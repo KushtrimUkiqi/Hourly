@@ -16,5 +16,6 @@
 
         public static readonly string TenantName = "tenantName";
 
+        public static readonly string Permissions = "permissions";
     }
 }

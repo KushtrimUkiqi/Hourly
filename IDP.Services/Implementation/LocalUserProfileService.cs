@@ -30,9 +30,13 @@
                 .GetUserClaimsBySubjectAsync(subjectId))
                 .ToList();
 
+            var userPermissions = user.UserRoles.SelectMany(x => x.Role.Permissions).Distinct().ToList();
+
             var userClaims = claimsForUser.Select(c => new Claim(c.Type, c.Value)).ToList();
 
             userClaims.Add(new Claim(UserClaims.TenantUid, user.TenantUid.ToString()));
+
+            userClaims.AddRange(userPermissions.Select(x => new Claim(UserClaims.Permissions, x.Name)));
 
             context.AddRequestedClaims(userClaims);
 
