@@ -1,7 +1,40 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model WebApp.Models.Home.EmployeeDetailsModel
+
 @{
+    ViewData["Details"] = "Employee details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>Employee created</div>
+<div style="padding: 12px 30px;">
+    @if(Model.Error == null)
+{
+    <div class="mb-3 hourly-card" style="max-width: 540px;">
+        <div class="row no-gutters">
+        <div class="col-md-8">
+        <div class="card-body">
+        <h5 class="card-title">Personal data</h5>
+        </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group">
+        <label class="input-group-text" for="">FirstName</label>
+      </div>
+        <div class="input-group">
+            <label class="input-group-text" for="">@Model.Value.FirstName</label>
+        </div>
+    </div>
+}
+
+@if(Model.Error != null)
+{
+       <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">Error</h4>
+      <p>
+          @Model.Error
+      </p>
+    </div>
+}
+</div>

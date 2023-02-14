@@ -20,6 +20,8 @@
     using MediatR;
     using Contracts.Common.Constants;
     using Contracts.Common.ResultTexts;
+    using Queries.Employee.GetEmployeeQuery;
+    using WebApp.Models.Home;
 
     [Authorize]
     public class HomeController : Controller
@@ -63,18 +65,20 @@
             });
         }
 
+
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FirstName,LastName,Email,PhoneNumber,Position")] CreateEmployeeRequest request)
         {
             if (!Guid.TryParse(User.Claims.FirstOrDefault(x => x.Type == UserClaims.TenantUid)?.Value, out Guid tenantUid))
             {
-                return View(new IndexModel
+                return View(new EmployeeDetailsModel
                 {
                     Error = ResultTexts.TENANT_NOT_FOUND
                 }); ;
@@ -82,14 +86,58 @@
 
             Result<Guid> createdEmployeeUidResult = await _mediator.Send(new CreateEmployeeCommand(tenantUid: tenantUid,request: request));
 
-            ///remake this part
             if (createdEmployeeUidResult.IsFailure)
             {
-                Error();
+                return View("Details", new EmployeeDetailsModel
+                {
+                    Error = createdEmployeeUidResult.ErrorMessage
+                });
             }
 
-            return View("Details", request);
+            var employeeResult = await _mediator.Send(new GetEmployeeQuery(tenantUid: tenantUid, employeeUid: createdEmployeeUidResult.Value));
+
+
+            if (employeeResult.IsFailure)
+            {
+                return View("Details", new EmployeeDetailsModel
+                {
+                    Error = employeeResult.ErrorMessage
+                });
+            }
+
+            return View("Details", new EmployeeDetailsModel
+            {
+                Value = employeeResult.Value
+            });
         }
+
+
+        public async Task<IActionResult> Details(Guid employeeUid)
+        {
+            if (!Guid.TryParse(User.Claims.FirstOrDefault(x => x.Type == UserClaims.TenantUid)?.Value, out Guid tenantUid))
+            {
+                return View(new IndexModel
+                {
+                    Error = ResultTexts.TENANT_NOT_FOUND
+                });
+            }
+
+            var employeeResult = await _mediator.Send(new GetEmployeeQuery(tenantUid: tenantUid, employeeUid: employeeUid));
+
+            if(employeeResult.IsFailure)
+            {
+                return View(new EmployeeDetailsModel
+                {
+                    Error = employeeResult.ErrorMessage
+                });
+            }
+
+            return View(new EmployeeDetailsModel
+            {
+                Value = employeeResult.Value,
+            });
+        }
+
         public IActionResult Privacy()
         {
             return View();

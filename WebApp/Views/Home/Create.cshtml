@@ -3,8 +3,46 @@
     ViewData["Title"] = "Create employee";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div style="padding: 12px 30px;">
+    <div class="row d-flex">
+        <div class="col-1">
+            <a asp-action="Index">
+                <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g filter="url(#filter0_d_0_1)">
+                        <path d="M19 8H5" stroke="#4A1B56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </g>
+                    <g filter="url(#filter1_d_0_1)">
+                        <path d="M12 15L5 8L12 1" stroke="#4A1B56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" shape-rendering="crispEdges" />
+                    </g>
+                    <defs>
+                        <filter id="filter0_d_0_1" x="0" y="7" width="24" height="10" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                            <feOffset dy="4" />
+                            <feGaussianBlur stdDeviation="2" />
+                            <feComposite in2="hardAlpha" operator="out" />
+                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_1" />
+                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_1" result="shape" />
+                        </filter>
+                        <filter id="filter1_d_0_1" x="0" y="0" width="17" height="24" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                            <feOffset dy="4" />
+                            <feGaussianBlur stdDeviation="2" />
+                            <feComposite in2="hardAlpha" operator="out" />
+                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_1" />
+                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_1" result="shape" />
+                        </filter>
+                    </defs>
+                </svg>
+            </a>
+        </div>
+        <div class="col-5"></div>
+        <div class="col-3"><h4>Create employee</h4></div>
+    </div>
 
-<h4>Create employee</h4>
 <hr />
 <div class="row d-flex justify-content-center">
     <div class="col-md-4">
@@ -52,11 +90,7 @@
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
-
 @*@section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }*@
