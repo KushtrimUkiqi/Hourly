@@ -8,22 +8,84 @@
 <div style="padding: 12px 30px;">
     @if(Model.Error == null)
 {
-    <div class="mb-3 hourly-card" style="max-width: 540px;">
-        <div class="row no-gutters">
-        <div class="col-md-8">
-        <div class="card-body">
-        <h5 class="card-title">Personal data</h5>
-        </div>
-        </div>
-        </div>
-    </div>
+        <div class="d-flex justify-content-between row">
+        <div class="col-3">
+            <div class="mb-3 hourly-card">
+                <div class="row no-gutters">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Personal data</h4>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label fw-bold">First name</label>
+                            <div class="col-sm-8">
+                                <label for="inputEmail3" class="col-form-label">@Model.Value.FirstName</label>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label fw-bold">Last name</label>
+                            <div class="col-sm-8">
+                                <label for="inputEmail3" class="col-form-label">@Model.Value.LastName</label>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label fw-bold">Email</label>
+                            <div class="col-sm-8">
+                                <label for="inputEmail3" class="col-form-label">@Model.Value.Email</label>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label fw-bold">Phone number</label>
+                            <div class="col-sm-8">
+                                <label for="inputEmail3" class="col-form-label">@Model.Value.PhoneNumber</label>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label fw-bold">Address</label>
+                            <div class="col-sm-8">
+                                <label for="inputEmail3" class="col-form-label"></label>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label fw-bold">Bank number</label>
+                            <div class="col-sm-8">
+                                <label for="inputEmail3" class="col-form-label"></label>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
 
-    <div class="input-group mb-3">
-      <div class="input-group">
-        <label class="input-group-text" for="">FirstName</label>
-      </div>
-        <div class="input-group">
-            <label class="input-group-text" for="">@Model.Value.FirstName</label>
+            <div class="mb-3 hourly-card" >
+                <div class="row no-gutters">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Position</h4>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label fw-bold">Position</label>
+                            <div class="col-sm-8">
+                                <label for="inputEmail3" class="col-form-label"></label>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label fw-bold">Department</label>
+                            <div class="col-sm-8">
+                                <label for="inputEmail3" class="col-form-label"></label>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label fw-bold">Manager</label>
+                            <div class="col-sm-8">
+                                <label for="inputEmail3" class="col-form-label"></label>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 }
