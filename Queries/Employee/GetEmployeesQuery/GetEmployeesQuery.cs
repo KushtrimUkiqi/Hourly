@@ -59,7 +59,8 @@
                         FirstName = x.FirstName,
                         LastName = x.LastName,
                         PhoneNumber = x.PhoneNumber,
-                        Email = x.Email
+                        Email = x.Email,
+                        Status = x.Status,
                     }).ToList()
                 });
         }

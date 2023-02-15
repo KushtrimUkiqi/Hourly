@@ -49,7 +49,8 @@
                 FirstName = employeResult.Value.FirstName ?? string.Empty,
                 LastName= employeResult.Value.LastName ?? string.Empty,
                 PhoneNumber = employeResult.Value.PhoneNumber ?? string.Empty ,
-                Email = employeResult.Value.Email ?? string.Empty
+                Email = employeResult.Value.Email ?? string.Empty,
+                Status = employeResult.Value.Status,
             });
         }
     }

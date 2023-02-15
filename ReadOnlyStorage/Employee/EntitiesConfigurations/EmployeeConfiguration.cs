@@ -23,6 +23,7 @@
             builder.Property(x => x.LastName).HasColumnName("LastName").HasColumnType("nvarchar").HasMaxLength(50).IsRequired(false);
             builder.Property(x => x.Email).HasColumnName("Email").HasColumnType("nvarchar").HasMaxLength(50).IsRequired(false);
             builder.Property(x => x.PhoneNumber).HasColumnName("PhoneNumber").HasColumnType("nvarchar").HasMaxLength(50).IsRequired(false);
+            builder.Property(x => x.Status).HasColumnName("Status").HasColumnType("nvarchar").HasMaxLength(50).IsRequired();
 
             builder.Property(x => x.UserId).HasColumnName("UserId").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TenantId).HasColumnName("TenantId").HasColumnType("int").IsRequired();

@@ -38,6 +38,11 @@
         public string? EmployeePosition { get; private set; }
 
         /// <summary>
+        /// Tells if the employe is already part of the system or not "IsInvited" | "NotInvited"
+        /// </summary>
+        public string Status { get; private set; }
+
+        /// <summary>
         /// Tenant id
         /// </summary>
         public int TenantId { get; private set; }

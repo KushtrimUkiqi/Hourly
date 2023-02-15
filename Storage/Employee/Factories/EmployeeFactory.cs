@@ -25,6 +25,7 @@
                 email: dbEmployee.Email,
                 position: "",
                 phoneNumber: dbEmployee.PhoneNumber,
+                status: dbEmployee.Status,
                 tenantId: dbEmployee.TenantId);
 
             return employeeResult;
@@ -66,6 +67,7 @@
                 LastName = employee.LastName.Value,
                 Email = employee.EmailAddress.Value,
                 PhoneNumber = employee.PhoneNumber.Value,
+                Status = employee.Status,
                 TenantId = employee.TenantId
             };
 

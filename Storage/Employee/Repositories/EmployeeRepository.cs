@@ -19,11 +19,14 @@
             _employeeDbContext = employeeDbContext;
         }
 
-        public async Task<Result<Employee>> GetEmployeeByUidAsync(Guid employeeUid)
+        public async Task<Result<Employee>> GetEmployeeByUidAsync(Guid tenantUid, Guid employeeUid)
         {
             StorageEntities.Employee? dbEmployee  = await _employeeDbContext.Employees
-                                .Where(x => x.Uid == employeeUid)
-                                    .FirstOrDefaultAsync();
+                                .Include(x => x.Tenant)
+                                .Where(x => x.Uid == employeeUid 
+                                    && x.Tenant != null 
+                                    && x.Tenant.Uid == tenantUid)
+                                .FirstOrDefaultAsync();
 
             if (dbEmployee == null)
             {
@@ -55,6 +58,29 @@
             }
 
             await _employeeDbContext.Set<StorageEntities.Employee>().AddAsync(dbEmployeeResult.Value);
+
+            return Result.OK();
+        }
+
+
+        public async Task<Result> UpdateAsync(Employee employee)
+        {
+            var dbEmployeeResult = employee.Create();
+
+            if (dbEmployeeResult.IsFailure)
+            {
+                return dbEmployeeResult;
+            }
+
+            StorageEntities.Employee? dbExistingEmployee = await _employeeDbContext.Set<StorageEntities.Employee>().FirstOrDefaultAsync(x => x.Id == employee.Id);
+
+            if(dbExistingEmployee == null || dbEmployeeResult.Value == null)
+            {
+                return Result.NOT_FOUND();
+            }
+
+            _employeeDbContext.Entry(dbExistingEmployee).CurrentValues.SetValues(dbEmployeeResult.Value);
+            _employeeDbContext.Entry(dbEmployeeResult.Value).State = EntityState.Detached;
 
             return Result.OK();
         }

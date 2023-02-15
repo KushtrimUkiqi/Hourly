@@ -18,6 +18,7 @@
         /// <param name="email"></param>
         /// <param name="phoneNumber"></param>
         /// <param name="position"></param>
+        /// <param name="status"></param>
         /// <param name="tenantId"></param>
         /// <returns></returns>
         public static Result<Employee> CreateFromStorage (
@@ -30,7 +31,8 @@
             string email,
             string phoneNumber,
             string position,
-            int tenantId)
+            int tenantId,
+            string status)
         {
             Result<EmployeeFirstNameValue> employeeFirstNameValueResult = EmployeeFirstNameValue.Create(firstName);
             Result<EmployeeLastNameValue> employeeLastNameValueResult = EmployeeLastNameValue.Create(lastName);
@@ -57,6 +59,7 @@
                     EmailAddress = emailAddressValueResult.Value,
                     PhoneNumber = phoneNumberValueResult.Value,
                     EmployeePosition = position,
+                    Status = status,
                     TenantId = tenantId
                 });
         }
@@ -77,7 +80,8 @@
             string lastName,
             string email,
             string phoneNumber,
-            string position)
+            string position,
+            string status = "NotInvited")
         {
             Result<EmployeeFirstNameValue> employeeFirstNameValueResult = EmployeeFirstNameValue.Create(firstName);
             Result<EmployeeLastNameValue> employeeLastNameValueResult = EmployeeLastNameValue.Create(lastName);
@@ -103,8 +107,35 @@
                     EmailAddress = emailAddressValueResult.Value,
                     PhoneNumber = phoneNumberValueResult.Value,
                     EmployeePosition = position,
+                    Status = status,
                     TenantId = tenantId
                 });
         }
+
+
+        public Result Invite()
+        {
+            if(Status == "IsInvited")
+            {
+                return Result.FAILED();
+            }
+
+            Status = "IsInvited";
+
+            return Result.OK();
+        }
+
+        /// <summary>
+        /// Marks the employee as deleted
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public Result MarkAsDeleted(DateTime dateTime)
+        {
+            DeletedOn = dateTime;
+
+            return Result.OK();
+        }
     }
+
 }
