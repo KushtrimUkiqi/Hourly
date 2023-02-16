@@ -29,6 +29,9 @@
             (User userToAdd,
             string password);
 
+        Task AddNewUser
+            (User userToAdd);
+
         Task<bool> AddUserSecret(string subject, string name, string secret);
 
         Task<bool> IsUserActive(

@@ -10,7 +10,9 @@
         /// </summary>
         /// <param name="employeeUid"></param>
         /// <returns></returns> 
-        Task<Result<Employee>> GetEmployeeByUidAsync(Guid employeeUid);
+        Task<Result<Employee>> GetEmployeeByUidAsync(Guid tenantUid, Guid employeeUid);
+
+        Task<Result<Tenant>> GetTenantByUidAsync(Guid tenantUid);
 
         /// <summary>
         /// Adds a new employee
@@ -18,6 +20,13 @@
         /// <param name="employee"></param>
         /// <returns></returns>
         Task<Result> AddAsync(Employee employee);
+
+        /// <summary>
+        /// Updates the employee data
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        Task<Result> UpdateAsync(Employee employee);
 
         /// <summary>
         /// Deletes employee

@@ -218,8 +218,7 @@
 
             if (!isUserNameUnique)
             {
-                // in a real-life scenario you'll probably want to 
-                // return this as a validation issue
+                // should return as validation result
                 throw new Exception("Username must be unique");
             }
 
@@ -245,6 +244,42 @@
             //await _userRepository.SaveChangesAsync();
             await _unitOfWork.SaveChangesAsync();
         }
+
+        public async Task AddNewUser(User userToAdd)
+        {
+            if (userToAdd == null)
+            {
+                throw new ArgumentNullException(nameof(userToAdd));
+            }
+
+            bool isUserNameUnique = await _userRepository.IsUserUserNameUniqueAsync(userToAdd.UserName);
+
+            if (!isUserNameUnique)
+            {
+                // should return as validation result
+                throw new Exception("Username must be unique");
+            }
+
+            bool isUserEmailUnique = await _userRepository.IsUserEmailUniqueAsync(userToAdd.Email);
+
+            if (!isUserEmailUnique)
+            {
+                throw new Exception("Email must be unique");
+            }
+
+            userToAdd.SecurityCode = Convert.ToBase64String(
+                RandomNumberGenerator.GetBytes(128));
+            userToAdd.SecurityCodeExpirationDate = DateTime.UtcNow.AddHours(1);
+
+
+            //_context.Users.Add(userToAdd);
+
+            await _userRepository.AddAsync(userToAdd);
+
+            //await _userRepository.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync();
+        }
+
 
         public async Task<bool> ActivateUserAsync(string securityCode)
         {

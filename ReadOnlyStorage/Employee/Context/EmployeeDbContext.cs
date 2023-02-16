@@ -1,6 +1,8 @@
 ﻿namespace ReadOnlyStorage.Employee.Context
 {
     using Microsoft.EntityFrameworkCore;
+
+    using ReadOnlyEntities.Employee;
     using ReadOnlyStorage.Employee.Entities;
 
     public  class EmployeeReadOnlyDbContext : DbContext

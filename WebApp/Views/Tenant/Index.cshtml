@@ -1,0 +1,25 @@
+﻿@model TenantIndexModel
+@{
+    ViewData["Tenant"] = "Tenant";
+}
+
+
+    <div class="d-flex justify-content-center">
+    <div class="w-50">
+        <div class="d-flex justify-content-center">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-center">
+                        <label>Tenant name : </label> <label> @Model.Name </label>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <label>Tenant address : </label> <label> @Model.Address </label>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <label>Tenant website : </label> <a href="@Model.WebSite"> @Model.WebSite </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>

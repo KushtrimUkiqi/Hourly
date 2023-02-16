@@ -1,5 +1,5 @@
-﻿namespace ReadOnlyStorage.Employee.Entities
-{ 
+﻿namespace ReadOnlyEntities.Employee
+{
 
     using Contracts.Common.Entities;
 
@@ -15,8 +15,12 @@
 
         public string? PhoneNumber { get; set; }
 
-        //public int UserId { get; set; }
+        public string Status { get; set; }
 
-        //public int TenantId { get; set; }
+        public int? UserId { get; set; }
+
+        public int TenantId { get; set; }
+
+        public virtual Tenant? Tenant { get; set; }
     }
 }

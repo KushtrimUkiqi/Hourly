@@ -4,7 +4,7 @@
     {
         public bool IsSucess { get; set; }
 
-        public bool IsFailure => !IsSucess;
+        public virtual bool IsFailure => !IsSucess;
 
         public ResultCode ResultCode { get; set; }
 

@@ -1,4 +1,4 @@
-﻿@model IndexModel
+﻿@model WebApp.Models.Home.TableViewModel
 @{
     ViewData["Title"] = "Home";
 }
@@ -12,15 +12,15 @@
         </p>
     }
 
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between mx-5 px-5 mb-5">
         <div class="col-9"></div>
-        <a class="btn btn-primary col-2" asp-area="" asp-controller="Home" asp-action="Create">Create employee</a>
-   </div>
+            <a class="btn btn-primary col-1" asp-area="" asp-controller="Home" asp-action="Create">Create employee</a>
+        </div>
 
     @{
-        if (Model.Error == null && Model.Employees != null)
+        if (Model.Value != null && Model.Value.Count > 0)
         {
-            <table class="table">
+            <table class="table mt-2 px-2">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col"></th>
@@ -30,22 +30,80 @@
                         <th scope="col">Phone number</th>
                         <th scope="col">Position</th>
                         <th scope="col">Department</th>
-                        <th scope="col">Hours</th>
+                        <th scope="col">Status</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                     <tbody>
                     @{
                         int index = 1;
-                        foreach (var employee in Model.Employees.Items)
+                        foreach (var employee in Model.Value.Items)
                         {
                             <tr>
                             <th scope="row">@index</th>
-                            <td>@employee.FirstName</td>
-                            <td>@employee.LastName</td>
-                            <td>@employee.Email</td>
-                            <td>@employee.PhoneNumber</td>
-                            <td></td>
-                            <td></td>
+                                <td >@employee.FirstName</td>
+                                <td >@employee.LastName</td>
+                                <td >@employee.Email</td>
+                                <td >@employee.PhoneNumber</td>
+                                <td ></td>
+                                <td ></td>
+                                <td >
+                                @{
+                                    if (employee.Status == "IsInvited")
+                                    {
+                                        <div class="invited-badge">Invited</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="not-invited-badge">Not invited</div>
+                                    }
+                                }
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-around align-items-center">
+                                        <div>
+                                            <a asp-area="" asp-controller="Home" asp-action="Details" asp-route-employeeUid="@employee.Uid">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M15 2H9C8.44772 2 8 2.44772 8 3V5C8 5.55228 8.44772 6 9 6H15C15.5523 6 16 5.55228 16 5V3C16 2.44772 15.5523 2 15 2Z" stroke="#1C3575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="M16 4H18C18.5304 4 19.0391 4.21071 19.4142 4.58579C19.7893 4.96086 20 5.46957 20 6V20C20 20.5304 19.7893 21.0391 19.4142 21.4142C19.0391 21.7893 18.5304 22 18 22H6C5.46957 22 4.96086 21.7893 4.58579 21.4142C4.21071 21.0391 4 20.5304 4 20V6C4 5.46957 4.21071 4.96086 4.58579 4.58579C4.96086 4.21071 5.46957 4 6 4H8" stroke="#1C3575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="M12 11H16" stroke="#1C3575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="M12 16H16" stroke="#1C3575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="M8 11H8.01" stroke="#1C3575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="M8 16H8.01" stroke="#1C3575" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a asp-area="" asp-controller="Home" asp-action="Edit" asp-route-uid="@employee.Uid">
+                                                <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12 1H6C5.44772 1 5 1.44772 5 2V4C5 4.55228 5.44772 5 6 5H12C12.5523 5 13 4.55228 13 4V2C13 1.44772 12.5523 1 12 1Z" stroke="#4A1B56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="M5 3H3C2.46957 3 1.96086 3.21071 1.58579 3.58579C1.21071 3.96086 1 4.46957 1 5V19C1 19.5304 1.21071 20.0391 1.58579 20.4142C1.96086 20.7893 2.46957 21 3 21H15C15.5304 21 16.0391 20.7893 16.4142 20.4142C16.7893 20.0391 17 19.5304 17 19V18.5" stroke="#4A1B56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="M13 3H15C15.3507 3.00036 15.6952 3.09294 15.9988 3.26846C16.3025 3.44398 16.5546 3.69626 16.73 4" stroke="#4A1B56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="M15.42 8.60999C15.615 8.41498 15.8465 8.26029 16.1013 8.15475C16.3561 8.04921 16.6292 7.99489 16.905 7.99489C17.1808 7.99489 17.4539 8.04921 17.7087 8.15475C17.9635 8.26029 18.195 8.41498 18.39 8.60999C18.585 8.80501 18.7397 9.03652 18.8452 9.29132C18.9508 9.54612 19.0051 9.81921 19.0051 10.095C19.0051 10.3708 18.9508 10.6439 18.8452 10.8987C18.7397 11.1535 18.585 11.385 18.39 11.58L13.95 16L10 17L10.99 13.05L15.42 8.60999Z" stroke="#4A1B56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="M5 17H6" stroke="#4A1B56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a asp-area="" asp-controller="Home" asp-action="Invite" asp-route-employeeUid="@employee.Uid" asp-route-fromTableView="true">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M22 13V6C22 5.46957 21.7893 4.96086 21.4142 4.58579C21.0391 4.21071 20.5304 4 20 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V18C2 19.1 2.9 20 4 20H12" stroke="#4A1B56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="M22 7L13.03 12.7C12.7213 12.8934 12.3643 12.996 12 12.996C11.6357 12.996 11.2787 12.8934 10.97 12.7L2 7" stroke="#4A1B56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="M16 19L18 21L22 17" stroke="#4A1B56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a asp-area="" asp-controller="Home" asp-action="Delete" asp-route-employeeUid="@employee.Uid">
+                                                <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M1 5H19" stroke="#561B1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="M17 5V19C17 20 16 21 15 21H5C4 21 3 20 3 19V5" stroke="#561B1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="M6 5V3C6 2 7 1 8 1H12C13 1 14 2 14 3V5" stroke="#561B1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                </div>
+                            </td>
                             </tr>
 
                             index++;
@@ -54,6 +112,6 @@
                     </tbody>
                 </table>
             }
-        }
+    }
 
 </div>

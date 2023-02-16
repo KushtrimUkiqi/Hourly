@@ -5,7 +5,7 @@ namespace WebApp.Controllers
 {
     public class EmployeesController : Controller
     {
-        [Authorize(Policy = "CanViewEmployeess")]
+        //[Authorize(Policy = "CanViewEmployeess")]
         public IActionResult Index()
         {
             return View();

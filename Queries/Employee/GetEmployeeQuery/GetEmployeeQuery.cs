@@ -14,9 +14,12 @@
     {
         public Guid EmployeeUid { get; private set; }
 
-        public GetEmployeeQuery(Guid employeeUid)
+        public Guid TenantUid { get; private set; }
+
+        public GetEmployeeQuery(Guid employeeUid, Guid tenantUid)
         {
             EmployeeUid = employeeUid;
+            TenantUid = tenantUid;
         }
     }
 
@@ -31,9 +34,11 @@
 
         public async Task<Result<EmployeeResponseDto>> Handle(GetEmployeeQuery request, CancellationToken cancellationToken)
         {
-            var employeResult = await _employeeRepository.GetEmployeeByUidAsync(request.EmployeeUid);
+            var employeResult = await _employeeRepository.GetEmployeeByUidAsync(
+                tenantUid: request.TenantUid,
+                employeeUid: request.EmployeeUid);
 
-            if(employeResult.IsFailure)
+            if(employeResult.IsFailure || employeResult.Value == null)
             {
                 return Result<EmployeeResponseDto>.FROM_ERROR(employeResult);
             }
@@ -41,10 +46,11 @@
             return Result<EmployeeResponseDto>.OK(new EmployeeResponseDto
             {
                 Uid = employeResult.Value.Uid,
-                FirstName = employeResult.Value.FirstName,
-                LastName= employeResult.Value.LastName,
-                PhoneNumber = employeResult.Value.PhoneNumber,
-                Email = employeResult.Value.Email
+                FirstName = employeResult.Value.FirstName ?? string.Empty,
+                LastName= employeResult.Value.LastName ?? string.Empty,
+                PhoneNumber = employeResult.Value.PhoneNumber ?? string.Empty ,
+                Email = employeResult.Value.Email ?? string.Empty,
+                Status = employeResult.Value.Status,
             });
         }
     }

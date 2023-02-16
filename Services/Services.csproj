@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
 	<TargetFramework>net6.0</TargetFramework>
@@ -7,17 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<Folder Include="Employee\IntegrationEventHandlers\" />
 	<Folder Include="Employee\DomainEventHandlers\" />
+	<Folder Include="Employee\IntegrationEventHandlers\" />
+	<Folder Include="Tenant\Commands\" />
+	<Folder Include="Tenant\IntegrationEventHandlers\" />
+	<Folder Include="Tenant\DomainEventHandlers\" />
   </ItemGroup>
 
  <ItemGroup>
+	<PackageReference Include="MassTransit" Version="8.0.12" />
+	<PackageReference Include="MassTransit.RabbitMQ" Version="8.0.12" />
 	<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
 	<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
 	<PackageReference Include="SendGrid" Version="9.28.1" />
  </ItemGroup>
 
  <ItemGroup>
+   <ProjectReference Include="..\CommonProject\CommonProject.csproj" />
    <ProjectReference Include="..\Contracts\Contracts.csproj" />
    <ProjectReference Include="..\Entities\Entities.csproj" />
  </ItemGroup>

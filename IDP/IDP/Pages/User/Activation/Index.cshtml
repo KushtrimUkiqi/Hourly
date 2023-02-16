@@ -2,7 +2,12 @@
 @model IDP.Pages.User.Activation.IndexModel
 @{
 
-    <div class="row">
-        <h3>@Model.Input.Message</h3>
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; width: 100vw; margin-top: 300px">
+        <div>
+            <a href="https://localhost:5001/Account/Login?ReturnUrl=%2Fconnect%2Fauthorize%2Fcallback%3Fclient_id%3DwebApp%26redirect_uri%3Dhttps%253A%252F%252Flocalhost%253A7107%252Fsignin-oidc%26response_type%3Dcode%26scope%3Dopenid%2520profile%2520roles%2520country%2520tenantUid%2520permissions%2520offline_access%2520webapi.readAccess%26code_challenge%3DABAWime-gWeqXKpP5YeuN_fZSmNkhCEY2f9mPcKyy1w%26code_challenge_method%3DS256%26response_mode%3Dform_post%26nonce%3D638121582674057693.MWFmNDE4MmYtM2I1Yi00ZDlhLTk0NzEtZThjN2JlZTBlN2FkYWIwNWVlNDItYmE2Zi00MmVjLWIxNzUtNTgyODc3MjkxZTIw%26state%3DCfDJ8Mqe4ZETmCVIv8FzRGOt3gJyRSPlHAejyBl6CMKnm4nhu_-yvPtinYBIIb5hvP8O2onKuxr_OdT_7Du8_VTWS2cVbV1ZLowO1QKOv1tJA6fCfOnayPdGOCPT-E0laKNJVqh88vJUHltfgUG9bCw3E_srE5AanakUIWDyOB2jz8HBLVnVOr91FW6Jh2a0YNEZJ9OImjycjlJH-BQHq8RHR1ND0nZtLtT3O5ZIi_2ssDjOcam71G6ZHoWoQBXTHX_XQDQXSvZv44LvHVWsjZIOpTsWQeXy2a2_xNWY9uKS_HmiQn8IlZIa0YkpuJM9TLp_AL_vv419fti7nX_RfVtBOb_Qzhokht11M4YmXtPtu9C2BLfwST_XQDQ19EMAbX4ZuA%26x-client-SKU%3DID_NETSTANDARD2_0%26x-client-ver%3D6.10.0.0">
+                <h3>@Model.Input.Message</h3>
+            </a>
+        </div>
+        
     </div>
 }

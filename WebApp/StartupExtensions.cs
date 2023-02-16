@@ -8,13 +8,12 @@
 
     using Microsoft.Net.Http.Headers;
 
-    using Common.Policy;
-
     using Queries;
     using ReadOnlyStorage;
 
     using Services;
     using Storage;
+    using Contracts.Common.Constants;
 
     public static class StartupExtensions
     {
@@ -68,9 +67,13 @@
                     options.ClaimActions.DeleteClaim("idp");
                     options.Scope.Add("roles");
                     options.Scope.Add("country");
+                    options.Scope.Add(UserClaims.TenantUid);
+                    options.Scope.Add(UserClaims.Permissions);
                     options.Scope.Add("offline_access");
                     options.Scope.Add("webapi.readAccess");
                     options.ClaimActions.MapJsonKey("role", "role");
+                    options.ClaimActions.MapJsonKey(UserClaims.Permissions, UserClaims.Permissions);
+                    options.ClaimActions.MapUniqueJsonKey(UserClaims.TenantUid, UserClaims.TenantUid);
                     options.ClaimActions.MapJsonKey("country", "country");
                     options.ClaimActions.MapJsonKey("offline_access", "offline_access");
 
@@ -82,10 +85,10 @@
                 });
 
             // Add authorization policies (for the moment this can be commented out!)
-            builder.Services.AddAuthorization(authorizationPolicies =>
-            {
-                authorizationPolicies.AddPolicy("CanViewEmployeess", AuthorizationPolicies.CanViewEmployees());
-            });
+            //builder.Services.AddAuthorization(authorizationPolicies =>
+            //{
+            //    authorizationPolicies.AddPolicy("CanViewEmployeess", AuthorizationPolicies.CanViewEmployees());
+            //});
 
 
             return builder.Build();

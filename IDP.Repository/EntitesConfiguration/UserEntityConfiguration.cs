@@ -23,6 +23,7 @@
             builder.Property(x => x.UserName).HasColumnName("UserName").HasColumnType("nvarchar").HasMaxLength(255).IsRequired(false);
             builder.Property(x => x.Password).HasColumnName("Password").HasColumnType("nvarchar").HasMaxLength(255).IsRequired(false);
             builder.Property(x => x.Email).HasColumnName("Email").HasColumnType("nvarchar").HasMaxLength(200).IsRequired(false);
+            builder.Property(x => x.TenantUid).HasColumnName("TenantUid").HasColumnType("uuid").IsRequired();
             builder.Property(x => x.SecurityCode).HasColumnName("SecurityCode").HasColumnType("nvarchar").HasMaxLength(200).IsRequired(false);
             builder.Property(x => x.Active).HasColumnName("Active").HasColumnType("bit").IsRequired();
             builder.Property(x => x.SecurityCodeExpirationDate).HasColumnName("SecurityCodeExpirationDate").HasColumnType("smalldatetime").IsRequired(false);

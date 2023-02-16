@@ -1,8 +1,6 @@
 @page
 @model IDP.Pages.Login.Index
 
-    @*  <partial name="_ValidationSummary" />
-        *@
 
         @if (Model.View.EnableLocalLogin)
         {
@@ -73,51 +71,12 @@
                     <button class="login-button" name="Input.Button" value="login">Login</button>
                 </div>
             </div>
-            <div class="button-container">
-                <a class="btn btn-secondary"
-                asp-page="/User/Registration/Index"
+            <div class="button-container" style="margin-top: 25px!important; display: flex; justify-content: center; width: 380px;">
+                <a asp-page="/User/Registration/Index"
                 asp-route-returnUrl="@Model.Input.ReturnUrl">
-                    Not registered yet?  Click here
+                    Start using our products
                 </a>
             </div>
         </form>
         </div>
-
-
-
-
         }
-
-@*        @if (Model.View.VisibleExternalProviders.Any())
-        {
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h2>External Account</h2>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-inline">
-                            @foreach (var provider in Model.View.VisibleExternalProviders)
-                            {
-                                <li class="list-inline-item">
-                                    <a class="btn btn-secondary"
-                                       asp-page="/ExternalLogin/Challenge"
-                                       asp-route-scheme="@provider.AuthenticationScheme"
-                                       asp-route-returnUrl="@Model.Input.ReturnUrl">
-                                        @provider.DisplayName
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        }
-
-        @if (!Model.View.EnableLocalLogin && !Model.View.VisibleExternalProviders.Any())
-        {
-            <div class="alert alert-warning">
-                <strong>Invalid login request</strong>
-                There are no login schemes configured for this request.
-            </div>
-        }*@

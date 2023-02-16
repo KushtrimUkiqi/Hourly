@@ -10,6 +10,7 @@
 
     using SendGrid;
     using SendGrid.Helpers.Mail;
+    using Contracts.Common.Settings;
 
     public class EmailService : IEmailService
     {

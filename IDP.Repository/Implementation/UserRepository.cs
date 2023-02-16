@@ -60,8 +60,11 @@
 
         public async Task<User?> GetUserBySubjectAsync(string subject)
         {
-            return await _identityDbContext.Users.FirstOrDefaultAsync(u =>
-                u.Subject == subject);
+            return await _identityDbContext.Users
+                .Include(x => x.UserRoles)
+                    .ThenInclude(x => x.Role)
+                        .ThenInclude(x => x.Permissions)
+                .FirstOrDefaultAsync(u => u.Subject == subject);
         }
 
         public async Task<IEnumerable<UserClaim>> GetUserClaimsBySubjectAsync(string subject)
@@ -73,7 +76,10 @@
         public async Task<User?> GetUserByUserNameAsync(string userName)
         {
             User? user = await _identityDbContext.Users
-                 .FirstOrDefaultAsync(u => u.UserName == userName);
+                .Include(x => x.UserRoles)
+                    .ThenInclude(x => x.Role)
+                        .ThenInclude(x => x.Permissions)
+                .FirstOrDefaultAsync(u => u.UserName == userName);
 
             return user;
         }
@@ -102,7 +108,7 @@
         {
             User? user = await _identityDbContext.Users.FirstOrDefaultAsync(u =>
                 u.SecurityCode == securityCode &&
-                u.SecurityCodeExpirationDate >= dateTime);
+                u.SecurityCodeExpirationDate >= dateTime.Date);
 
             return user;
         }

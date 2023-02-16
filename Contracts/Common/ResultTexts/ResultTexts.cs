@@ -14,6 +14,14 @@
 
         #endregion
 
+        #region TENANT
+
+        public static readonly string TENANT_NOT_FOUND = "TENANT_NOT_FOUND";
+
+        public static readonly string TENANTS_NOT_FOUND = "TENANTS_NOT_FOUND";
+
+        #endregion
+
         #region EMPLOYEE
 
         public static readonly string EMPLOYEE_NOT_FOUND = "EMPLOYEE_NOT_FOUND";

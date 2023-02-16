@@ -7,10 +7,13 @@
   </PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="MassTransit" Version="8.0.12" />
+		<PackageReference Include="MassTransit.RabbitMQ" Version="8.0.12" />
 		<PackageReference Include="Duende.IdentityServer" Version="6.2.1" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\CommonProject\CommonProject.csproj" />
 	  <ProjectReference Include="..\Common\IDP.Common.csproj" />
 	  <ProjectReference Include="..\IDP.Domain\IDP.Domain.csproj" />
 	  <ProjectReference Include="..\IDP.Repository\IDP.Repository.csproj" />

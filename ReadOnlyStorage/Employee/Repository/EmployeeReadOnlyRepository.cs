@@ -6,8 +6,8 @@
     using Contracts.Common.ResultTexts;
     using Contracts.Employee.Storage.Read;
     using Microsoft.EntityFrameworkCore;
+    using ReadOnlyEntities.Employee;
     using ReadOnlyStorage.Employee.Context;
-    using ReadOnlyStorage.Employee.Entities;
 
     public class EmployeeReadOnlyRepository : IEmployeeReadOnlyRepository
     {
@@ -18,9 +18,15 @@
             _employeeDbContext = employeeDbContext;
         }
 
-        public async Task<Result<Employee>> GetEmployeeByUidAsync(Guid employeeUid)
+        public async Task<Result<Employee>> GetEmployeeByUidAsync(Guid tenantUid, Guid employeeUid)
         {
-            Employee? dbEmployee = await _employeeDbContext.Employees.Where(x => x.Uid == employeeUid).FirstOrDefaultAsync();
+            Employee? dbEmployee = await _employeeDbContext
+                .Employees
+                    .Include(x => x.Tenant)
+                    .Where(x => x.Uid == employeeUid 
+                        && x.Tenant != null 
+                        && x.Tenant.Uid == tenantUid)
+                    .FirstOrDefaultAsync();
 
             if (dbEmployee == null)
             {
@@ -30,10 +36,14 @@
             return Result<Employee>.OK(dbEmployee);
         }
 
-        public async Task<Result<IEnumerable<Employee>>> GetEmployees(int pageNumber, int pageSize)
+        public async Task<Result<IEnumerable<Employee>>> GetEmployees(Guid tenantUid, int pageNumber, int pageSize)
         {
             IEnumerable<Employee> employeesList = await _employeeDbContext.Employees
-                .Skip(pageNumber * pageSize).Take(pageSize).ToListAsync();
+                        .Include(x => x.Tenant)
+                    .Where(x => x.Tenant != null
+                        && x.Tenant.Uid == tenantUid)
+                    .Skip(pageNumber * pageSize)
+                    .Take(pageSize).ToListAsync();
 
             if (!employeesList.Any()) 
             {

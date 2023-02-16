@@ -18,6 +18,8 @@
         /// <param name="email"></param>
         /// <param name="phoneNumber"></param>
         /// <param name="position"></param>
+        /// <param name="status"></param>
+        /// <param name="tenantId"></param>
         /// <returns></returns>
         public static Result<Employee> CreateFromStorage (
             int id,
@@ -28,7 +30,9 @@
             string lastName,
             string email,
             string phoneNumber,
-            string position)
+            string position,
+            int tenantId,
+            string status)
         {
             Result<EmployeeFirstNameValue> employeeFirstNameValueResult = EmployeeFirstNameValue.Create(firstName);
             Result<EmployeeLastNameValue> employeeLastNameValueResult = EmployeeLastNameValue.Create(lastName);
@@ -55,16 +59,15 @@
                     EmailAddress = emailAddressValueResult.Value,
                     PhoneNumber = phoneNumberValueResult.Value,
                     EmployeePosition = position,
+                    Status = status,
+                    TenantId = tenantId
                 });
         }
 
         /// <summary>
         /// Domain object created from the creation flow
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="uid"></param>
-        /// <param name="createdOn"></param>
-        /// <param name="deletedOn"></param>
+        /// <param name="tenantId"></param>
         /// <param name="firstName"></param>
         /// <param name="lastName"></param>
         /// <param name="email"></param>
@@ -72,11 +75,13 @@
         /// <param name="position"></param>
         /// <returns></returns>
         public static Result<Employee> Create(
+            int tenantId,
             string firstName,
             string lastName,
             string email,
             string phoneNumber,
-            string position)
+            string position,
+            string status = "NotInvited")
         {
             Result<EmployeeFirstNameValue> employeeFirstNameValueResult = EmployeeFirstNameValue.Create(firstName);
             Result<EmployeeLastNameValue> employeeLastNameValueResult = EmployeeLastNameValue.Create(lastName);
@@ -102,7 +107,35 @@
                     EmailAddress = emailAddressValueResult.Value,
                     PhoneNumber = phoneNumberValueResult.Value,
                     EmployeePosition = position,
+                    Status = status,
+                    TenantId = tenantId
                 });
         }
+
+
+        public Result Invite()
+        {
+            if(Status == "IsInvited")
+            {
+                return Result.FAILED();
+            }
+
+            Status = "IsInvited";
+
+            return Result.OK();
+        }
+
+        /// <summary>
+        /// Marks the employee as deleted
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public Result MarkAsDeleted(DateTime dateTime)
+        {
+            DeletedOn = dateTime;
+
+            return Result.OK();
+        }
     }
+
 }

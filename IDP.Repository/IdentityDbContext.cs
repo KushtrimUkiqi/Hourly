@@ -14,6 +14,13 @@
 
         public DbSet<UserLogin> UserLogins { get; set; }
 
+        public DbSet<UserRole> UserRoles { get; set; }
+
+        public DbSet<Permission> Permissions { get; set; }
+
+        public DbSet<Role> Roles { get; set; }
+
+
         public IdentityDbContext(
           DbContextOptions<IdentityDbContext> options)
         : base(options)
@@ -26,6 +33,9 @@
             modelBuilder.ApplyConfiguration(new UserLoginEntityConfiguration());
             modelBuilder.ApplyConfiguration(new UserSecretEntityConfiguration());
             modelBuilder.ApplyConfiguration(new UserClaimEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new UserRoleEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new PermissionEntityConfiguration());
 
             modelBuilder.HasDefaultSchema("dbo");
         }
