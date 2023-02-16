@@ -1,4 +1,4 @@
-﻿namespace Contracts.Common.Models
+﻿namespace Contracts.Common.Settings
 {
     public class EmailSettings
     {

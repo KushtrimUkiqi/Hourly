@@ -108,7 +108,7 @@
         {
             User? user = await _identityDbContext.Users.FirstOrDefaultAsync(u =>
                 u.SecurityCode == securityCode &&
-                u.SecurityCodeExpirationDate >= dateTime);
+                u.SecurityCodeExpirationDate >= dateTime.Date);
 
             return user;
         }

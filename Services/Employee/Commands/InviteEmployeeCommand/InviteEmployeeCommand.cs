@@ -7,6 +7,9 @@
     using Services.Employee.Repository;
 
     using MediatR;
+    using Contracts.Common.Infrastructure;
+    using Contracts.Employee.IntegrationEvents;
+    using CommonProject.IntegrationEvents;
 
     public class InviteEmployeeCommand : IRequest<Result>
     {
@@ -24,10 +27,12 @@
     public class InviteEmployeeCommandHandler : IRequestHandler<InviteEmployeeCommand, Result>
     {
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IEventBus _eventBus;
 
-        public InviteEmployeeCommandHandler(IEmployeeRepository employeeRepository)
+        public InviteEmployeeCommandHandler(IEmployeeRepository employeeRepository, IEventBus eventBus)
         {
             _employeeRepository = employeeRepository;
+            _eventBus = eventBus;
         }
 
         public async Task<Result> Handle(InviteEmployeeCommand request, CancellationToken cancellationToken)
@@ -54,7 +59,15 @@
                 return Result<Guid>.FROM_ERROR(updatedResult);
             }
 
-            await _employeeRepository.SaveChangesAsync();
+            await _eventBus.PublishAsync(
+                new EmployeeInviteRequestedIntegrationEvent (
+                    tenantId: employeeResult.Value.TenantId,
+                    tenantName: "",
+                    email: employeeResult.Value.EmailAddress.Value,
+                    employeeUid: employeeResult.Value.Uid,
+                    name: $"{employeeResult.Value.FirstName.Value} {employeeResult.Value.LastName.Value}"));
+
+            await _employeeRepository.SaveChangesAsync(); 
 
             return Result.OK();
         }

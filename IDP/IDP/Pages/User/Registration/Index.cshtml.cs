@@ -87,7 +87,7 @@ namespace IDP.Pages.User.Registration
             //await _localUserService.SaveChangesAsync();
 
             // create an activation link - we need an absolute URL, therefore
-            // we use Url.PageLink instead of Url.Page
+            // we use Url.PageLink instead of Url.Page for local testing
             var activationLink = Url.PageLink("/user/activation/index",
                 values: new { securityCode = userToCreate.SecurityCode });
 
